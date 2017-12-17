@@ -1,6 +1,5 @@
 package sortings;
 
-import sortings.generic.InsertionSort;
 
 public class CountingSort {
 	
