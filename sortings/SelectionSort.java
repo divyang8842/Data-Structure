@@ -1,3 +1,4 @@
+package sortings;
 public class SelectionSort {
 	public int[] doSelectionSort(int[] arr) {
 

@@ -1,3 +1,4 @@
+package sortings;
 
 
 public final class QuickSelect {

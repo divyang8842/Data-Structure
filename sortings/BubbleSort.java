@@ -1,4 +1,4 @@
-
+package sortings;
 public class BubbleSort {
 	public  void bubble_srt(int array[]) {
 		int n = array.length;

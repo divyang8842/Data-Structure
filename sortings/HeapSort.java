@@ -1,3 +1,4 @@
+package sortings;
 import java.util.Scanner;
 
 public class HeapSort 

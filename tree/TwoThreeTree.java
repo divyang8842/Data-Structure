@@ -1,4 +1,7 @@
-class Node 
+package tree;
+
+
+ class Node 
 {
 	private int keyCount;
 	private Node parent;

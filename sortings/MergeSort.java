@@ -1,3 +1,4 @@
+package sortings;
 public class MergeSort {
 	private int[] array;
 	private int[] tempMergArr;

@@ -1,3 +1,4 @@
+package sortings;
 public class InsertionSort {
 
 	public static void main(String a[]) {
