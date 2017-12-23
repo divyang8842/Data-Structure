@@ -60,6 +60,35 @@ public class SinglyLinkedList<T> {
 		}
 	}
 	
+	public void reverseLL(){
+		SinglyLinkedListNode<T> prev = null;
+		SinglyLinkedListNode<T> current =  head;
+		
+		while(current!=null){
+			
+			SinglyLinkedListNode<T> next = current.getNext();
+			current.setNext(prev);
+			prev = current;
+			current = next;
+		}
+		head = prev;
+	}
+	
+	
+	public void reverseInPAir(){
+		SinglyLinkedListNode<T> prev = head;
+		SinglyLinkedListNode<T> current =  head;
+		SinglyLinkedListNode<T> temp = null;
+		while(prev!=null && prev.getNext() != null){
+			current =  prev.getNext();
+			//if(current==null)
+			temp = current.getNext();
+			prev.setNext(temp);
+			current.setNext(prev);
+			prev = temp;
+		}
+		head = head.getNext();
+	}
 	public static void main(String str[]){
 		SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 		list.insert("hello");
@@ -71,14 +100,15 @@ public class SinglyLinkedList<T> {
 		list.insert("4");
 		list.insert("5");
 		list.insert("6");
-		list.delete(1);
+		/*list.delete(1);*/
+		list.reverseInPAir();
 		list.printLL();
-		System.out.println("------------------");
+		/*System.out.println("------------------");
 		list.delete(5);
 		list.printLL();
 		System.out.println("------------------");
 		list.delete(0);
 		list.printLL();
-		System.out.println("------------------");
+		System.out.println("------------------");*/
 	}
 }
