@@ -19,6 +19,40 @@ public class SinglyLinkedList<T> {
 		return head;
 	}
 	
+	
+	public SinglyLinkedListNode<T> insertAtIndex(T data,int nIndex){
+		if(head==null){
+			head = new SinglyLinkedListNode<T>();
+			head.setData(data);
+		}else if(nIndex==0){
+			SinglyLinkedListNode<T>  newNode = new SinglyLinkedListNode<T>();
+			newNode.setData(data);
+			newNode.setNext(head);
+			head =  newNode;
+		}else{
+			int length =  getLength();
+			if(nIndex > length-1){
+				nIndex = length-1;
+			}
+			
+			SinglyLinkedListNode<T> currentNode = head;
+			int curIndex =1; 
+			while(currentNode.getNext()!=null && curIndex!=nIndex){
+				currentNode = currentNode.getNext();
+				curIndex++;
+			}
+			SinglyLinkedListNode<T> newNode = new SinglyLinkedListNode<T>();
+			newNode.setData(data);
+			newNode.setNext(currentNode.getNext());
+			currentNode.setNext(newNode);
+		}
+		return head;
+	}
+	
+	public boolean isEmpty(){
+		return head==null;
+	}
+	
 	public int getLength(){
 		int nLength = 0;
 
@@ -30,13 +64,15 @@ public class SinglyLinkedList<T> {
 		return nLength;
 	}
 	
-	public SinglyLinkedListNode<T> delete(int nIndex){
+	public T delete(int nIndex){
 		
 		int length =  getLength();
+		SinglyLinkedListNode<T> tempNode = new SinglyLinkedListNode<T>();
 		if(nIndex > length-1){
 			nIndex = length-1;
 		}
 		if(nIndex==0){
+			tempNode = head;
 			head =  head.getNext();
 		}else{
 			int curIndex = 1;
@@ -45,11 +81,33 @@ public class SinglyLinkedList<T> {
 				currNode = currNode.getNext();
 				curIndex++;
 			}
-			SinglyLinkedListNode<T> tempNode =  currNode.getNext();
+			tempNode =  currNode.getNext();
 			currNode.setNext(tempNode.getNext());
 			tempNode.setNext(null);
 		}
-		return head;
+		return tempNode.getData();
+	}
+	
+	
+	public T getNodeData(int nIndex){
+		
+		int length =  getLength();
+		SinglyLinkedListNode<T> tempNode = new SinglyLinkedListNode<T>();
+		if(nIndex > length-1){
+			nIndex = length-1;
+		}
+		if(nIndex==0){
+			return head.getData();
+		}else{
+			int curIndex = 1;
+			SinglyLinkedListNode<T> currNode =  head;
+			while(curIndex!=nIndex){
+				currNode = currNode.getNext();
+				curIndex++;
+			}
+			tempNode =  currNode.getNext();
+		}
+		return tempNode.getData();
 	}
 	
 	public void printLL(){
