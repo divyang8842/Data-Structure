@@ -41,14 +41,23 @@ public class Stack<T> {
 	
 	public void revertStack(Stack<T> stack){
 		
-		if(stack.e)
-		
+		if(stack.isEmpty()){
+			return;
+		}
 		T data = stack.pop();
-		
+		revertStack(stack);
+		insertAtBottom(stack, data);
 		
 	}
 	
-	private void insertAtBottom(){
+	private void insertAtBottom(Stack<T> stack,T data){
+		if(stack.isEmpty()){
+			stack.push(data);
+			return;
+		}
+		T temp = stack.pop();
+		insertAtBottom(stack,data);
+		stack.push(temp);
 		
 	}
 	
