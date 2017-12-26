@@ -57,8 +57,7 @@ public class Stack<T> {
 		}
 		T temp = stack.pop();
 		insertAtBottom(stack,data);
-		stack.push(temp);
-		
+		stack.push(temp);	
 	}
 	
 	
