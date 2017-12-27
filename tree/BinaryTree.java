@@ -4,19 +4,20 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-public class BinaryTree<T extends Number & Comparable<? super Number>> {
+/*public class BinaryTree<T extends Number & Comparable<? super Number>> {*/
 	
+public class BinaryTree<T extends Number> {
 	public void inOrderTraversal(BinaryTreeNode<T> root){
 		if(root!=null){
 			inOrderTraversal(root.getLeft());
-			System.out.println(root.getData());
+			System.out.print(root.getData()+" ");
 			inOrderTraversal(root.getRight());
 		}
 	}
 	
 	public void preOrderTraversal(BinaryTreeNode<T> root){
 		if(root!=null){
-			System.out.println(root.getData());
+			System.out.print(root.getData()+" ");
 			inOrderTraversal(root.getLeft());
 			inOrderTraversal(root.getRight());
 		}
@@ -26,7 +27,7 @@ public class BinaryTree<T extends Number & Comparable<? super Number>> {
 		if(root!=null){
 			inOrderTraversal(root.getLeft());
 			inOrderTraversal(root.getRight());
-			System.out.println(root.getData());
+			System.out.print(root.getData()+" ");
 		}
 	}
 	
@@ -37,12 +38,18 @@ public class BinaryTree<T extends Number & Comparable<? super Number>> {
 		}
 		queue.offer(root);
 		queue.offer(null);
+		int nLevelCount = 0;
 		while(!queue.isEmpty()){
 			BinaryTreeNode<T> current = queue.poll();
 			if(current==null){
 				System.out.println("");
-				queue.offer(null);
+				if(nLevelCount==0){
+					nLevelCount++;
+					queue.offer(null);	
+				}
+				
 			}else{
+				nLevelCount = 0;
 				System.out.print(current.getData()+" ");
 				if(current.getLeft()!=null){
 					queue.offer(current.getLeft());
@@ -71,7 +78,9 @@ public class BinaryTree<T extends Number & Comparable<? super Number>> {
 				if (current.getRight() != null) {
 					queue.offer(current.getRight());
 				}
-				if (max.compareTo(current.getData()) < 0) {
+				double dMax =  max.doubleValue();
+				double data = current.getData().doubleValue();
+				if (data>dMax) {
 					max = current.getData();
 					
 				}
@@ -129,16 +138,21 @@ public class BinaryTree<T extends Number & Comparable<? super Number>> {
 		}
 		queue.offer(root);
 		queue.offer(null);
+		
 		stack.push(null);
-		stack.push(root);
-		stack.push(null);
+		int nLevelCount = 0;
 		while(!queue.isEmpty()){
 			BinaryTreeNode<T> current = queue.poll();
 			if(current==null){
 				stack.push(null);
+				if(nLevelCount == 0){
+					nLevelCount++;
+					queue.offer(null);
+				}
 				//System.out.println("");
-				queue.offer(null);
+				
 			}else{
+				nLevelCount = 0;
 				//System.out.print(current.getData()+" ");
 				stack.push(current);
 				if(current.getLeft()!=null){
@@ -152,17 +166,83 @@ public class BinaryTree<T extends Number & Comparable<? super Number>> {
 		
 		while(!stack.isEmpty()){
 			BinaryTreeNode<T> current =  stack.pop();
-			StringBuilder sbLevel =  new StringBuilder();
 			if(current==null){
-				System.out.println(sbLevel.toString());
-				sbLevel =  new StringBuilder();
+				System.out.println("");
 			}else{
-				sbLevel = new StringBuilder(String.valueOf(current.getData()) + sbLevel);
-				//System.out.print(current.getData()+" ");
+				System.out.print(current.getData()+" ");
 			}
 		}
 	}
 	
+	public int minDepth(BinaryTreeNode<T> root){
+		int depth = 0;
+		if(root!=null){
+			depth = 1;
+		}
+		if(root.getLeft()!=null && root.getRight()!=null){
+			depth = 1+Math.min(minDepth(root.getLeft()), minDepth(root.getRight()));
+		}
+		return depth;
+	}
 	
+	public BinaryTreeNode<T> insert(BinaryTreeNode<T> root,T data){
+		if(root==null){
+			root =  new BinaryTreeNode<T>();
+			root.setData(data);
+		}else{
+			Queue<BinaryTreeNode<T>> queue = new LinkedList<BinaryTreeNode<T>>();
+			queue.offer(root);
+			boolean done =  false;
+			BinaryTreeNode<T> newNode =  new BinaryTreeNode<T>();
+			newNode.setData(data);
+			
+			while (!done) {
+				BinaryTreeNode<T> current = queue.poll();
+				
+				if (current.getLeft() != null) {
+					queue.offer(current.getLeft());
+				}else{
+					current.setLeft(newNode);
+					done = true;
+				}
+				if (current.getRight() != null) {
+					queue.offer(current.getRight());
+				}else if(!done){
+					current.setRight(newNode);
+					done = true;
+				}
+			}
+		}
+		
+		return root;
+	}
 	
+	public static void main(String srgs[]){
+		
+		BinaryTree<Integer> bTree = new BinaryTree<Integer>();
+		BinaryTreeNode<Integer> root = bTree.insert(null, 1);
+		bTree.insert(root, 2);
+		bTree.insert(root, 3);
+		bTree.insert(root, 4);
+		bTree.insert(root, 5);
+		bTree.insert(root, 6);
+		bTree.insert(root, 7);
+		bTree.insert(root, 8);
+		bTree.insert(root, 9);
+		bTree.insert(root, 10);
+		bTree.insert(root, 11);
+		bTree.insert(root, 12);
+		bTree.insert(root, 13);
+		bTree.insert(root, 14);
+		bTree.insert(root, 15);
+		bTree.insert(root, 16);
+		
+		bTree.levelOrderTraversal(root);
+		System.out.println("MAx depth is "+bTree.depth(root));
+		System.out.println("Min depth is "+bTree.minDepth(root));
+		bTree.levelOrderReverseTraversal(root);
+		System.out.println("size of tree is "+bTree.size(root));
+		System.out.println("Max record in tree is "+bTree.findMax(root));
+		System.out.println("Max record using recursiove in tree is "+bTree.findMaxRec(root));
+	}
 }
