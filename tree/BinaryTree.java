@@ -217,6 +217,89 @@ public class BinaryTree<T extends Number> {
 		return root;
 	}
 	
+	public void mirrorTree(BinaryTreeNode<T> root){
+		Queue<BinaryTreeNode<T>> queue =  new LinkedList<BinaryTreeNode<T>>();
+		if(root!=null){
+			queue.offer(root);
+			BinaryTreeNode<T> current = root;
+			while(!queue.isEmpty()){
+				current = queue.poll();
+				if(current!=null){
+					BinaryTreeNode<T> temp = current.getLeft();
+					current.setLeft(current.getRight());
+					current.setRight(temp);
+					queue.offer(current.getLeft());
+					queue.offer(current.getRight());
+				}
+			}
+		}
+	}
+	
+	
+	public void printPossiblePath(BinaryTreeNode<T> root,String strPath){
+		if(root!=null){
+			strPath+="-> "+root.getData();
+			if(root.getLeft()==null && root.getRight()==null){
+				System.out.println(strPath);
+			}else{
+				printPossiblePath(root.getLeft(), strPath);
+				printPossiblePath(root.getRight(), strPath);
+			}
+		}
+	}
+	
+	public BinaryTreeNode<T> makeSpecialTreeFromString(char[] data,int curPos){
+		if(data==null || data.length==curPos){
+			return null;
+		}
+		
+		T tData = extracted(curPos);
+		BinaryTreeNode<T> newNode = new BinaryTreeNode<T>();
+		newNode.setData(tData);
+		newNode.setLeft(null);
+		newNode.setRight(null);
+		if(data[curPos]=='L'){
+			return newNode;
+		}
+		
+		newNode.setLeft(makeSpecialTreeFromString(data, ++curPos));
+		newNode.setRight(makeSpecialTreeFromString(data, ++curPos));
+		
+		
+		return newNode;
+		
+	}
+
+	private T extracted(int curPos) {
+		return (T)(Number)curPos;
+	}
+	
+	public void setSiblings(BinaryTreeNode<T> root){
+		Queue<BinaryTreeNode<T>> queue =  new LinkedList<BinaryTreeNode<T>>();
+		if(root!=null){
+			queue.offer(root);
+			queue.offer(null);
+			BinaryTreeNode<T> current;
+			while(!queue.isEmpty()){
+				current = queue.poll();
+				
+				if(current==null){
+					queue.offer(null);
+				}else{
+					current.setSibling(queue.peek());
+					
+					if(current.getLeft()!=null){
+						queue.offer(current.getLeft());
+					}
+					if(current.getRight()!=null){
+						queue.offer(current.getRight());
+					}
+				}
+				
+			}
+		}
+	}
+	
 	public static void main(String srgs[]){
 		
 		BinaryTree<Integer> bTree = new BinaryTree<Integer>();
@@ -244,5 +327,12 @@ public class BinaryTree<T extends Number> {
 		System.out.println("size of tree is "+bTree.size(root));
 		System.out.println("Max record in tree is "+bTree.findMax(root));
 		System.out.println("Max record using recursiove in tree is "+bTree.findMaxRec(root));
+		bTree.mirrorTree(root);
+		System.out.println("After mirroring the tree is ");
+		bTree.levelOrderTraversal(root);
+		bTree.printPossiblePath(root, "Start ");
+		char[] data = {'I','L','I','L','L'};
+		BinaryTreeNode<Integer> newRoot = bTree.makeSpecialTreeFromString(data, 0);
+		bTree.levelOrderTraversal(newRoot);
 	}
 }

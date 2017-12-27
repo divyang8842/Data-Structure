@@ -2,7 +2,9 @@ package tree;
 
 public class BinaryTreeNode<T> {
 	private T data;
-	private BinaryTreeNode<T> left,right;
+	private BinaryTreeNode<T> left,right,sibling;
+	
+	
 	public T getData() {
 		return data;
 	}
@@ -20,6 +22,12 @@ public class BinaryTreeNode<T> {
 	}
 	public void setRight(BinaryTreeNode<T> right) {
 		this.right = right;
+	}
+	public BinaryTreeNode<T> getSibling() {
+		return sibling;
+	}
+	public void setSibling(BinaryTreeNode<T> sibling) {
+		this.sibling = sibling;
 	}
 	
 	
