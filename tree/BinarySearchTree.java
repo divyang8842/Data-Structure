@@ -16,6 +16,63 @@ public class BinarySearchTree<T extends Number> extends BinaryTree<T>{
 		return root;
 	}
 	
+	public BinaryTreeNode<T> findMaxNode(BinaryTreeNode<T> root){
+		if(root!=null){
+			while(root.getRight()!=null){
+				root = root.getRight();
+			}
+		}	
+		return root;
+	}
+	
+	public BinaryTreeNode<T> findMinNode(BinaryTreeNode<T> root){
+		if(root!=null){
+			while(root.getLeft()!=null){
+				root = root.getLeft();
+			}
+		}	
+		return root;
+	}
+	
+	public BinaryTreeNode<T> findNode(BinaryTreeNode<T> root,T data){
+		BinaryTreeNode<T> node = null;
+		if(root!=null){
+			if(data.doubleValue()==root.getData().doubleValue()){
+				node = root;
+			}else if(data.doubleValue()<root.getData().doubleValue()){
+				node = findNode(root.getLeft(), data);
+			}else{
+				node = findNode(root.getRight(), data);
+			}
+			
+		}	
+		return node;
+	}
+	
+	public BinaryTreeNode<T> delete(BinaryTreeNode<T> root,T data){
+		if(root==null){
+			return null;
+		}else if(root.getData().doubleValue()>data.doubleValue()){
+			root.setLeft(delete(root.getLeft(), data));
+		}else if(root.getData().doubleValue()<data.doubleValue()){
+			root.setRight(delete(root.getRight(), data));
+		}else{
+			if(root.getLeft()!=null && root.getRight()!=null){
+				BinaryTreeNode<T> successor = findMaxNode(root.getLeft());
+				root.setData(successor.getData());
+				root.setLeft(delete(successor, data));
+			}else{
+				if(root.getLeft()!=null){
+					root = root.getLeft();
+				}else{
+					root = root.getRight();
+				}
+			}
+		}
+		
+		return root;
+	}
+	
 	public static void main(String str[]){
 		BinarySearchTree<Integer> bsTree = new BinarySearchTree<Integer>();
 		BinaryTreeNode<Integer> root =  bsTree.insert(null, 3);
@@ -26,6 +83,12 @@ public class BinarySearchTree<T extends Number> extends BinaryTree<T>{
 		bsTree.insert(root, 6);
 		bsTree.insert(root, 0);
 		
+		bsTree.levelOrderTraversal(root);	
+		System.out.println("Min value is " +bsTree.findMinNode(root).getData());
+		System.out.println("Max value is " +bsTree.findMaxNode(root).getData());
+		System.out.println("6 is available in tree "+(bsTree.findNode(root, 6)!=null));
+		System.out.println("7 is available in tree "+(bsTree.findNode(root, 7)!=null));
+		bsTree.delete(root, 4);
 		bsTree.levelOrderTraversal(root);	
 	}
 }
