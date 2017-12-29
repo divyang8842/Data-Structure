@@ -73,6 +73,26 @@ public class BinarySearchTree<T extends Number> extends BinaryTree<T>{
 		return root;
 	}
 	
+	public BinaryTreeNode<T> findLCA(BinaryTreeNode<T> root,T nodeData1,T nodeData2){
+		if(root==null){
+			return null;
+		}
+		double rootData = root.getData().doubleValue();
+		if(rootData==nodeData1.doubleValue() || rootData==nodeData2.doubleValue()){
+			return root;
+		}
+		
+		if(rootData> Math.max(nodeData1.doubleValue(), nodeData2.doubleValue())){
+			return findLCA(root.getLeft(),nodeData1,nodeData2);
+		}
+		if(rootData< Math.min(nodeData1.doubleValue(), nodeData2.doubleValue())){
+			return findLCA(root.getRight(),nodeData1,nodeData2);
+		}
+		
+		return root;
+	}
+	
+	
 	public static void main(String str[]){
 		BinarySearchTree<Integer> bsTree = new BinarySearchTree<Integer>();
 		BinaryTreeNode<Integer> root =  bsTree.insert(null, 3);
@@ -89,6 +109,8 @@ public class BinarySearchTree<T extends Number> extends BinaryTree<T>{
 		System.out.println("6 is available in tree "+(bsTree.findNode(root, 6)!=null));
 		System.out.println("7 is available in tree "+(bsTree.findNode(root, 7)!=null));
 		bsTree.delete(root, 4);
-		bsTree.levelOrderTraversal(root);	
+		bsTree.levelOrderTraversal(root);
+		
+		System.out.println("LCA of 2 and 6 is "+bsTree.findLCA(root, 2, 6).getData().intValue());
 	}
 }
