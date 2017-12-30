@@ -93,6 +93,22 @@ public class BinarySearchTree<T extends Number> extends BinaryTree<T>{
 	}
 	
 	
+	public boolean checkTheTreeIsBSTOrNot(BinaryTreeNode<T> head){
+		return isBSTHelper(head,(Number) Integer.MIN_VALUE, (Number)Integer.MAX_VALUE);
+	}
+	
+	public boolean isBSTHelper(BinaryTreeNode<T> head, Number mean, Number max){
+		if(head==null){
+			return true;
+		}
+		
+		return head.getData().doubleValue()> mean.doubleValue() && 
+					head.getData().doubleValue()< max.doubleValue()  &&
+						isBSTHelper(head.getLeft(), mean, head.getData())  &&
+							isBSTHelper(head.getRight(), head.getData(), max);
+	}
+	
+	
 	public static void main(String str[]){
 		BinarySearchTree<Integer> bsTree = new BinarySearchTree<Integer>();
 		BinaryTreeNode<Integer> root =  bsTree.insert(null, 3);
