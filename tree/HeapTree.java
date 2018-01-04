@@ -128,5 +128,51 @@ public class HeapTree<T extends Number> {
 	
 	
 	
-	
+	public static void main(String args[]){
+		HeapTree<Integer> maxTree =  new HeapTree<Integer>(HeapTree.MAX_HEAP,50);
+		try {
+			maxTree.insert(0);
+			maxTree.insert(1);
+			maxTree.insert(2);
+			maxTree.insert(3);
+			maxTree.insert(4);
+			maxTree.insert(5);
+			maxTree.insert(6);
+			maxTree.insert(7);
+			System.out.println("Max element is "+maxTree.getFirst());
+			maxTree.insert(7);
+			System.out.println("Max element is "+maxTree.getFirst());
+			System.out.println("Max element is "+maxTree.getFirst());
+			maxTree.insert(9);
+			
+			System.out.println("Max element is "+maxTree.getFirst());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		HeapTree<Integer> minTree =  new HeapTree<Integer>(HeapTree.MIN_HEAP,50);
+		try {
+			minTree.insert(7);
+			minTree.insert(6);
+			minTree.insert(5);
+			minTree.insert(4);
+			minTree.insert(3);
+			minTree.insert(2);
+			minTree.insert(1);
+			minTree.insert(0);
+			System.out.println("Min element is "+minTree.getFirst());
+			minTree.insert(0);
+			System.out.println("Min element is "+minTree.getFirst());
+			System.out.println("Min element is "+minTree.getFirst());
+			minTree.insert(-5);
+			
+			System.out.println("Min element is "+minTree.getFirst());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }
