@@ -80,11 +80,11 @@ public class HeapTree<T extends Number> {
 		Number data  = Integer.MIN_VALUE;
 		if(nIndex<currentindex){
 			data  = heapArry[nIndex];
-			heapArry[0] =  heapArry[--currentindex];
+			heapArry[nIndex] =  heapArry[--currentindex];
 			if(TYPE==MAX_HEAP){
-				maxHeapify(0);
+				maxHeapify(nIndex);
 			}else if(TYPE==MIN_HEAP){
-				minHeapify(0);
+				minHeapify(nIndex);
 			}
 		}
 		return data;
