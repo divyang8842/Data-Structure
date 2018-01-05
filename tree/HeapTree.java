@@ -76,6 +76,21 @@ public class HeapTree<T extends Number> {
 		}
 	}
 	
+	public Number deleteElementAtIndex(int nIndex){
+		Number data  = Integer.MIN_VALUE;
+		if(nIndex<currentindex){
+			data  = heapArry[nIndex];
+			heapArry[0] =  heapArry[--currentindex];
+			if(TYPE==MAX_HEAP){
+				maxHeapify(0);
+			}else if(TYPE==MIN_HEAP){
+				minHeapify(0);
+			}
+		}
+		return data;
+	}
+	
+	
 	
 	private void maxHeapify(int index){
 		int max = index;
