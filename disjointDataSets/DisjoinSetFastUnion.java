@@ -4,9 +4,6 @@ public class DisjoinSetFastUnion {
 	private int[] set;
 	private int size;
 	
-	private static final int UNION_BY_SIZE = 1;
-	private static final int UNION_BY_HEIGHT = 2;
-	
 	public DisjoinSetFastUnion(int size) {
 		this.size = size;
 		set =  new int[size];
@@ -46,7 +43,17 @@ public class DisjoinSetFastUnion {
 		}
 	}
 	
-	
+	public int findByPathCompression(int value){
+		if(validate(value)){
+			if(set[value]==-1){
+				return value;
+			}else{
+				int temp = findSet(set[value]);
+				return  validate(temp)?set[value]=temp:value;
+			}
+		}
+		return -1;
+	}
 	
 	private boolean validate(int value){
 		return value>=0 && value<size;
