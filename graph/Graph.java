@@ -13,11 +13,13 @@ public class Graph {
 	private boolean[][] adjacencyMAtrix;
 	private Stack<Integer>  stack =  new Stack<Integer>();
 	private Queue<Integer>  queue = new LinkedList<Integer>();
+	private int[] indegreeCount;
 	
 	Graph(int maxVertex){
 		this.maxVertex = maxVertex;
 		vertexList = new Vertex[maxVertex];
 		adjacencyMAtrix = new boolean[maxVertex][maxVertex];
+		indegreeCount =  new int[maxVertex];
 	}
 	
 	Graph(){
@@ -99,4 +101,51 @@ public class Graph {
 		}
 		resetVisitedFlag();
 	}
+	//kahn's algorithm
+	//Topological Sort codes 
+	public void setIndegreeForNodes() {
+		for (int i = 0; i < vertexCount; i++) {
+			int inDegree = 0;
+			for (int j = 0; j < vertexCount; j++) {
+				if (adjacencyMAtrix[j][i]) {
+					inDegree++;
+				}
+			}
+			indegreeCount[i] =  inDegree;
+		}
+	}
+	
+	public void getTopologicalSort(){
+		setIndegreeForNodes();
+		Queue<Integer> topoQueue =  new LinkedList<Integer>();
+		int nSortCount = 0;
+		for(int u=0;u<vertexCount;u++){
+			if(indegreeCount[u]==0){
+				topoQueue.offer(u);
+				displayVertex(u);
+			}
+		}
+		while(!topoQueue.isEmpty()){
+			nSortCount++;
+			removeAllOutDegree(topoQueue.poll(),topoQueue);
+		}
+		
+		if(nSortCount!=vertexCount){
+			System.err.println("The grapth contains cycle.");
+		}
+	}
+	
+	public void removeAllOutDegree(int u, Queue<Integer> topoQueue){
+		for(int v=0;v<vertexCount;v++){
+			if(adjacencyMAtrix[u][v]){
+				adjacencyMAtrix[u][v] = false;
+				if(--indegreeCount[v] == 0){
+					topoQueue.offer(v);
+					displayVertex(v);
+				}
+			}
+		}
+	}
+	//Kahn's algo completed
 }
+
