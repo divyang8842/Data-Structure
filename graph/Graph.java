@@ -10,7 +10,7 @@ public class Graph {
 	private int vertexCount;
 	private final int maxVertex;
 	private Vertex[] vertexList;
-	private boolean[][] adjacencyMAtrix;
+	private int[][] adjacencyMAtrix;
 	private Stack<Integer>  stack =  new Stack<Integer>();
 	private Queue<Integer>  queue = new LinkedList<Integer>();
 
@@ -18,7 +18,7 @@ public class Graph {
 	Graph(int maxVertex){
 		this.maxVertex = maxVertex;
 		vertexList = new Vertex[maxVertex];
-		adjacencyMAtrix = new boolean[maxVertex][maxVertex];
+		adjacencyMAtrix = new int[maxVertex][maxVertex];
 	}
 	
 	Graph(){
@@ -39,7 +39,7 @@ public class Graph {
 		return vertexList;
 	}
 
-	public boolean[][] getAdjacencyMAtrix() {
+	public int[][] getAdjacencyMAtrix() {
 		return adjacencyMAtrix;
 	}
 
@@ -52,8 +52,8 @@ public class Graph {
 	}
 	
 	public void addEdge(int strtIndex, int endIndex){
-		adjacencyMAtrix[strtIndex][endIndex] = true;
-		adjacencyMAtrix[endIndex][strtIndex] = true;
+		adjacencyMAtrix[strtIndex][endIndex] = 1;
+		adjacencyMAtrix[endIndex][strtIndex] = 1;
 	}
 	
 	public void displayVertex(int v){
@@ -95,7 +95,7 @@ public class Graph {
 	public int getNonVisitedAdjVertex(int u){
 		int v=0;
 		while(v<vertexCount){
-			if(adjacencyMAtrix[u][v]==true && !vertexList[v].isVisited()){
+			if(adjacencyMAtrix[u][v]==1 && !vertexList[v].isVisited()){
 				return v;
 			}
 		}

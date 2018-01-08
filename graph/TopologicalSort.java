@@ -19,7 +19,7 @@ public class TopologicalSort {
 		for (int i = 0; i < g.getVertexCount(); i++) {
 			int inDegree = 0;
 			for (int j = 0; j < g.getVertexCount(); j++) {
-				if (g.getAdjacencyMAtrix()[j][i]) {
+				if (g.getAdjacencyMAtrix()[j][i]==1) {
 					inDegree++;
 				}
 			}
@@ -49,8 +49,8 @@ public class TopologicalSort {
 	
 	public void removeAllOutDegree(int u, Queue<Integer> topoQueue){
 		for(int v=0;v<g.getVertexCount();v++){
-			if(g.getAdjacencyMAtrix()[u][v]){
-				g.getAdjacencyMAtrix()[u][v] = false;
+			if(g.getAdjacencyMAtrix()[u][v]==1){
+				g.getAdjacencyMAtrix()[u][v] = 0;
 				if(--indegreeCount[v] == 0){
 					topoQueue.offer(v);
 					g.displayVertex(v);

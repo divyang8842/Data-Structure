@@ -3,6 +3,8 @@ package graph;
 public class Vertex {
 	private char label;
 	private boolean isVisited;
+	private int parent;
+	private int weight;
 	
 	Vertex(char label)
 	{
@@ -24,6 +26,22 @@ public class Vertex {
 
 	public void setVisited(boolean isVisited) {
 		this.isVisited = isVisited;
+	}
+
+	public int getParent() {
+		return parent;
+	}
+
+	public void setParent(int parent) {
+		this.parent = parent;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 	
 	
