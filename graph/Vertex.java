@@ -1,14 +1,16 @@
 package graph;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex>{
 	private char label;
 	private boolean isVisited;
 	private int parent;
 	private int weight;
+	private int index;
 	
-	Vertex(char label)
+	Vertex(char label,int index)
 	{
 		this.label = label;
+		this.index = index;
 		isVisited = false;
 	}
 
@@ -42,6 +44,20 @@ public class Vertex {
 
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	@Override
+	public int compareTo(Vertex o) {
+		return this.getWeight()-o.getWeight();
+		//return 0;
 	}
 	
 	
