@@ -1,5 +1,8 @@
 package tree;
 
+import graph.Vertex;
+import heaptree.Student;
+
 
 public class HeapTree<T extends Comparable<T>> {
 	public static final int MAX_HEAP = 1;
@@ -146,6 +149,33 @@ public class HeapTree<T extends Comparable<T>> {
 		heapArry[index2] = temp;
 	}
 	
+	public void updatePriority(T data)
+	{
+		int index = findNodeIndex(0, data);
+		if(index>=0){
+			if(TYPE==MAX_HEAP){
+				maxHeapUp(index);
+			}else if(TYPE==MIN_HEAP){
+				minHeapUp(index);
+			}
+		}
+	}
+	public int findNodeIndex(int start,T nodeToFind){
+		if(start<=currentindex){
+			T root = heapArry[start];
+			if(root!=null){
+				if(root.compareTo(nodeToFind)==0){
+					return start;
+				}else if(root.compareTo(nodeToFind)<0){
+					return  findNodeIndex(left(start), nodeToFind);
+				}else{
+					return findNodeIndex(right(start), nodeToFind);
+				}
+				
+			}
+		}
+		return -1;
+	}
 	
 	
 	public static void main(String args[]){
@@ -172,6 +202,8 @@ public class HeapTree<T extends Comparable<T>> {
 		}
 		
 		
+		
+		
 		HeapTree<Integer> minTree =  new HeapTree<Integer>(HeapTree.MIN_HEAP,50);
 		try {
 			minTree.insert(7);
@@ -195,4 +227,6 @@ public class HeapTree<T extends Comparable<T>> {
 		}
 		
 	}
+	
+	
 }

@@ -19,6 +19,7 @@ public class Graph {
 		this.maxVertex = maxVertex;
 		vertexList = new Vertex[maxVertex];
 		adjacencyMAtrix = new int[maxVertex][maxVertex];
+		vertexCount = 0;
 	}
 	
 	Graph(){
@@ -45,7 +46,7 @@ public class Graph {
 
 	public void addVertex(char label){
 		if(vertexCount<maxVertex){
-			vertexList[vertexCount++] =  new Vertex(label);
+			vertexList[vertexCount] =  new Vertex(label,vertexCount++);
 		}else{
 			System.out.println("Vertex list is full.");
 		}
@@ -96,6 +97,16 @@ public class Graph {
 		int v=0;
 		while(v<vertexCount){
 			if(adjacencyMAtrix[u][v]==1 && !vertexList[v].isVisited()){
+				return v;
+			}
+		}
+		return -1;
+	}
+	
+	public int getAdjVertex(int u){
+		int v=0;
+		while(v<vertexCount){
+			if(adjacencyMAtrix[u][v]==1){
 				return v;
 			}
 		}
