@@ -1,23 +1,21 @@
 package tree;
 
 
-public class HeapTree<T extends Number> {
+public class HeapTree<T extends Comparable<T>> {
 	public static final int MAX_HEAP = 1;
 	public static final int MIN_HEAP = 2;
 	
 	private final int TYPE;
-	private Number[] heapArry = {-1};
+	private T[] heapArry;
 	private int currentindex = 0;
 	private final int capacity;
-	HeapTree(int type,int size){
+	public HeapTree(int type,int size){
 		TYPE = type;
-		heapArry = new Number[size];
+		heapArry = (T[]) new Comparable[size];
 		capacity = size;
 	}
-	HeapTree(){
-		TYPE = MAX_HEAP;
-		heapArry = new Number[100];
-		capacity = 100;
+	public HeapTree(){
+		this(MAX_HEAP,100);
 	}
 	
 	public void insert(T data) throws Exception{
@@ -43,21 +41,28 @@ public class HeapTree<T extends Number> {
 	private int parent(int index){
 		return (index-1)/2;
 	}
-	public Number getFirst(){
-		Number data  = heapArry[0];
-		heapArry[0] =  heapArry[--currentindex];
-		if(TYPE==MAX_HEAP){
-			maxHeapify(0);
-		}else if(TYPE==MIN_HEAP){
-			minHeapify(0);
+	public boolean isEmpty(){
+		return currentindex==0;
+	}
+	public T getFirst(){
+		T data  =null;
+		if(!isEmpty()){
+			data  = heapArry[0];
+			heapArry[0] =  heapArry[--currentindex];
+			if(TYPE==MAX_HEAP){
+				maxHeapify(0);
+			}else if(TYPE==MIN_HEAP){
+				minHeapify(0);
+			}
 		}
+		
 		return data;
 	}
 	
 	private void maxHeapUp(int index){
 		int current = index;
 		int parent = parent(index);
-		while(heapArry[current].doubleValue()>heapArry[parent].doubleValue()){
+		while(heapArry[current].compareTo(heapArry[parent])>0){
 			swap(current, parent);
 			current = parent;
 			parent =  parent(current);
@@ -68,7 +73,7 @@ public class HeapTree<T extends Number> {
 	private void minHeapUp(int index){
 		int current = index;
 		int parent = parent(index);
-		while(heapArry[current].doubleValue()<heapArry[parent].doubleValue()){
+		while(heapArry[current].compareTo(heapArry[parent])<0){
 			swap(current, parent);
 			current = parent;
 			parent =  parent(current);
@@ -76,8 +81,8 @@ public class HeapTree<T extends Number> {
 		}
 	}
 	
-	public Number deleteElementAtIndex(int nIndex){
-		Number data  = Integer.MIN_VALUE;
+	public T deleteElementAtIndex(int nIndex){
+		T data  = (T) (""+Integer.MIN_VALUE);
 		if(nIndex<currentindex){
 			data  = heapArry[nIndex];
 			heapArry[nIndex] =  heapArry[--currentindex];
@@ -98,12 +103,12 @@ public class HeapTree<T extends Number> {
 		int right = right(index);
 		if(index<currentindex){
 		if(left<currentindex){
-			if(heapArry[index].doubleValue()<heapArry[left].doubleValue()){
+			if(heapArry[index].compareTo(heapArry[left])<0){
 				max = left;
 			}
 		}
 		if(right<currentindex){
-			if(heapArry[max].doubleValue()<heapArry[right].doubleValue()){
+			if(heapArry[max].compareTo(heapArry[right])<0){
 				max = right;
 			}
 		}
@@ -120,12 +125,12 @@ public class HeapTree<T extends Number> {
 		int left =left(index);
 		int right = right(index);
 		if(left<currentindex){
-			if(heapArry[index].doubleValue()>heapArry[left].doubleValue()){
+			if(heapArry[min].compareTo(heapArry[left])>0){
 				min = left;
 			}
 		}
 		if(right<currentindex){
-			if(heapArry[min].doubleValue()>heapArry[right].doubleValue()){
+			if(heapArry[min].compareTo(heapArry[right])>0){
 				min = right;
 			}
 		}
@@ -136,7 +141,7 @@ public class HeapTree<T extends Number> {
 	}
 	
 	private void swap(int index1,int index2){
-		Number temp = heapArry[index1];
+		T temp = heapArry[index1];
 		heapArry[index1] = heapArry[index2];
 		heapArry[index2] = temp;
 	}
