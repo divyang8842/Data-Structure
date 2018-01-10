@@ -11,33 +11,42 @@ public class QuickSort<T extends Comparable<T>> implements Sorting<T>{
 	private void doQuickSort(T[] dataArray,int nLeft,int nRight){
 		while(nRight>nLeft){
 			int nPivot = doPartition(dataArray, nLeft, nRight);
+			if(nPivot>nLeft)
 			doQuickSort(dataArray, nLeft, nPivot-1);
+			if(nPivot<nRight)
 			doQuickSort(dataArray, nPivot+1, nRight);
 		}
 	}
 	
-	private int doPartition(T[] dataArry,int nLeft,int nRight){
-		int nPivot = nLeft;
-		int nHigh = 0;
-		int nLow = 0;
+	private int doPartition(T[] dataArry,int nLow,int nHigh){
+		int nPivot = nLow;
+		int nLeft = nLow;
+		int nRight = nHigh;
 		T pivotItem = dataArry[nPivot];
-		while(nHigh>nLow){
-			while(dataArry[nHigh].compareTo(pivotItem)<=0){
-				nHigh++;
+		while(nRight>nLeft){
+			
+			while(dataArry[nRight].compareTo(pivotItem)>0){
+				nRight--;
 			}
-			while(dataArry[nLow].compareTo(pivotItem)>0){
-				nLow++;
+			while(dataArry[nLeft].compareTo(pivotItem)<0){
+				nLeft++;
 			}
-			if(nHigh>nLow){
-				T temp = dataArry[nHigh];
-				dataArry[nHigh] = dataArry[nLow];
-				dataArry[nLow] = temp;
+			
+			
+			if(nRight>nLeft){
+				T temp = dataArry[nLeft];
+				dataArry[nLeft] = dataArry[nRight];
+				dataArry[nRight] = temp;
 			}
 		}
-		dataArry[nPivot]= dataArry[nLow];
-		dataArry[nLow] = pivotItem;
-		return nLow;
+		if(nRight>nLeft){
+			dataArry[nPivot] = dataArry[nRight];
+			dataArry[nRight] = pivotItem;
+			
+		}
+		nPivot = nRight;
 		
+		return nPivot;
 	}
 	
 	public void printArry(T[] dataArry){
@@ -49,7 +58,7 @@ public class QuickSort<T extends Comparable<T>> implements Sorting<T>{
 	}
 	
 	public static void main(String str[]){
-		MergeSort<Integer> objSort =  new MergeSort<Integer>();
+		QuickSort<Integer> objSort =  new QuickSort<Integer>();
 		Integer[] data = {0,1,2,3,4,5,6,7,8,9,10};
 		data = objSort.doSort(data);
 		objSort.printArry(data);
