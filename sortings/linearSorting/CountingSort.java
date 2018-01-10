@@ -1,4 +1,4 @@
-package sortings;
+package sortings.linearSorting;
 
 
 public class CountingSort {
