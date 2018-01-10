@@ -132,6 +132,33 @@ public class SinglyLinkedList<T> {
 		head = prev;
 	}
 	
+	public void reverseSecondHalfOfLL(){
+		SinglyLinkedListNode<T> prev = null;
+		SinglyLinkedListNode<T> current =  head;
+		SinglyLinkedListNode<T> next = head;
+		SinglyLinkedListNode<T> middle = head;
+		
+		//finding middle of LL
+		while(next.getNext()!=null){
+			next=next.getNext().getNext();
+			middle = middle.getNext();
+		}
+		
+		prev = null;
+		current = middle.getNext();
+		next = null;
+		while(current!=null){
+			next = current.getNext();
+			current.setNext(prev);
+			prev = current;
+			current = next;
+		}
+		
+		middle.setNext(prev);
+		
+		
+	}
+	
 	
 	public void reverseInPAir(){
 		SinglyLinkedListNode<T> prev = head;
@@ -158,10 +185,13 @@ public class SinglyLinkedList<T> {
 		list.insert("4");
 		list.insert("5");
 		list.insert("6");
-		/*list.delete(1);*/
-		list.reverseInPAir();
+		list.reverseSecondHalfOfLL();
 		list.printLL();
-		/*System.out.println("------------------");
+		/*list.delete(1);*/
+		/*list.reverseInPAir();
+		list.printLL();
+		
+		System.out.println("------------------");
 		list.delete(5);
 		list.printLL();
 		System.out.println("------------------");
