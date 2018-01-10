@@ -1,6 +1,6 @@
 package sortings.generic;
 
-public class BubbleSort<T extends Comparable<T>> {
+public class BubbleSort<T extends Comparable<T>> implements Sorting<T>{
 	
 	//ascending
 	public T[] doSort(T[] dataArry){

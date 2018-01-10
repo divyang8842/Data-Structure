@@ -1,6 +1,6 @@
 package sortings.generic;
 
-public class SelectionSort<T extends Comparable<T>>  {
+public class SelectionSort<T extends Comparable<T>> implements Sorting<T>{
 	
 	public T[] doSort(T[] dataArry){
 		int nLength = dataArry.length;

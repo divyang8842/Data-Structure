@@ -1,6 +1,6 @@
 package sortings.generic;
 
-public class InsertionSort<T extends Comparable<T>> {
+public class InsertionSort<T extends Comparable<T>> implements Sorting<T>{
 	public T[] doSort(T[] dataArry){
 		int nLength = dataArry.length;
 		for(int i=1;i<nLength;i++){

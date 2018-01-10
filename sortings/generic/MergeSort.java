@@ -2,7 +2,7 @@ package sortings.generic;
 
 import java.util.Arrays;
 
-public class MergeSort<T extends Comparable<T>> {
+public class MergeSort<T extends Comparable<T>> implements Sorting<T>{
 
 	public T[] doSort(T[] dataArry) {
 		T[] tempArry =  Arrays.copyOf(dataArry, dataArry.length);
