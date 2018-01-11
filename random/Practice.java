@@ -4,67 +4,138 @@ import java.util.HashSet;
 import java.util.Set;
 
 import sortings.HeapSort;
+import sortings.linearSorting.CountingSort;
 
 public class Practice {
 
-	public double sumOfAllElementIn2DArray(int[][] dataArry,int x,int y){
+	public double sumOfAllElementIn2DArray(int[][] dataArry, int x, int y) {
 		double sum = 0;
-		for(int i=0;i<x;i++){
-			for(int j=0;j<y;j+=2){
-				if(j==y-1){
-					sum+=dataArry[i][j];
-				}else{
-					sum+=dataArry[i][j]+dataArry[i][j+1];
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j += 2) {
+				if (j == y - 1) {
+					sum += dataArry[i][j];
+				} else {
+					sum += dataArry[i][j] + dataArry[i][j + 1];
 				}
 			}
 		}
 		return sum;
 	}
-	
-	
-	public boolean foundIfRepeatedNumber(int[] dataArry){
-		 HeapSort.sort(dataArry);// this can be changed to any algo
-		 for(int i=1;i<dataArry.length;i++){
-			 if(dataArry[i]==dataArry[i-1]){
-				 return true;
-			 }
-		 }
-		return false;
-	}
-	
-	public boolean isSumAvailableInSortedArray(int[] arry,int sum){
-			int nLeft = 0;
-			int nRight = arry.length-1;
-			while(nRight>nLeft){
-				int currentSum =  arry[nLeft] + arry[nRight];
-				if(currentSum == sum ){
-					return true;
-				}else if(currentSum>sum){
-					nRight--;
-				}else{
-					nLeft++;
-				}
+
+	public boolean foundIfRepeatedNumber(int[] dataArry) {
+		HeapSort.sort(dataArry);// this can be changed to any algo
+		for (int i = 1; i < dataArry.length; i++) {
+			if (dataArry[i] == dataArry[i - 1]) {
+				return true;
 			}
+		}
 		return false;
 	}
-	
-	public boolean isSumAvailableInUnSortedArray(int[] arry,int sum){
+
+	public boolean isSumAvailableInSortedArray(int[] arry, int sum) {
+		int nLeft = 0;
+		int nRight = arry.length - 1;
+		while (nRight > nLeft) {
+			int currentSum = arry[nLeft] + arry[nRight];
+			if (currentSum == sum) {
+				return true;
+			} else if (currentSum > sum) {
+				nRight--;
+			} else {
+				nLeft++;
+			}
+		}
+		return false;
+	}
+
+	public boolean isSumAvailableInUnSortedArray(int[] arry, int sum) {
 		int nLeft = 0;
 		int nRight = arry.length;
 		Set<Integer> complement = new HashSet<Integer>();
-		
-		while(nRight>nLeft){
-			if(complement.contains(arry[nLeft])){
+
+		while (nRight > nLeft) {
+			if (complement.contains(arry[nLeft])) {
 				return true;
-			}else{
+			} else {
 				complement.add(sum - arry[nLeft]);
 			}
 			nLeft++;
 		}
 		complement.clear();
-		complement =null;
-	return false;
-}
+		complement = null;
+		return false;
+	}
+	
+	public void sortAnArrayContaining012Counting(int[] dataArry) {
+		CountingSort sort = new CountingSort();
+		sort.doSort(dataArry, 3);
+		printArry(dataArry);
+	}
+
+	public void sortAnArrayContaining012(int[] dataArry) {
+		int nPivot = 1;
+		int nLeft = 0;
+		int nRight = dataArry.length - 1;
+
+		while (nRight > nLeft) {
+
+			while (dataArry[nLeft] < nPivot) {
+				nLeft++;
+			}
+			while (dataArry[nRight] > nPivot) {
+				nRight--;
+			}
+			if(dataArry[nRight]==nPivot || dataArry[nLeft]==nPivot){
+				if(dataArry[nLeft]==nPivot){
+					int i=nLeft;
+					for(;i<nRight;i++){
+						if(dataArry[i]!=nPivot){
+							break;
+						}
+					}
+					if(i>nLeft && i<nRight){
+						swapNumbersInArray(dataArry, nLeft, i);
+					}else{
+						break;
+					}
+					
+				}
+				if(dataArry[nRight]==nPivot){
+					int i=nRight;
+					for(;i>nLeft;i--){
+						if(dataArry[i]!=nPivot){
+							break;
+						}
+					}
+					if(i<nRight && i>nLeft){
+						swapNumbersInArray(dataArry, nRight, i);
+					}else{
+						break;
+					}
+					
+				}
+			}else
+			 if(nRight>nLeft){
+				swapNumbersInArray(dataArry, nLeft, nRight);
+			}
+			
+		}
+	}
+	
+	private void swapNumbersInArray(int[] dataArry, int nLeft, int nRight){
+		dataArry[nLeft] = dataArry[nLeft] + dataArry[nRight];
+		dataArry[nRight] = dataArry[nLeft] - dataArry[nRight];
+		dataArry[nLeft] = dataArry[nLeft] - dataArry[nRight];
+	}
+
+	public void printArry(int[] dataArry) {
+		int nLength = dataArry.length;
+		for (int i = 0; i < nLength; i++) {
+			System.out.print(dataArry[i] + " ");
+		}
+		System.out.println(" ");
+	}
+
 	public static void main(String str[]){
 		Practice obj = new Practice();
 		int[][]data = {{1,2,3,13},{4,5,6,14},{7,8,9,15},{10,11,12,16}};
@@ -83,5 +154,16 @@ public class Practice {
 		System.out.println("is Sum Available in unsorted array : "+obj.isSumAvailableInUnSortedArray(data0, 5000));
 		
 		System.out.println("is Sum Available in unsorted array : "+obj.isSumAvailableInUnSortedArray(data0, 10));
+		
+		
+		int data012[] = {0,0,2,1,0,1,2,0,1,2,0,0,1,2,0,1,2,0,1,2,0,2,2,2,0,1,2,0,1,2,0,0}; 
+		obj.sortAnArrayContaining012(data012);
+		System.out.println("Sorted array having 012 is ");
+		obj.printArry(data012);
+		
+		int data012Count[] = {0,0,2,1,0,1,2,0,1,2,0,0,1,2,0,1,2,0,1,2,0,2,2,2,0,1,2,0,1,2,0,0}; 
+		
+		System.out.println("Sorted array having 012 using counting sort is ");
+		obj.sortAnArrayContaining012Counting(data012Count);
 	}
 }
