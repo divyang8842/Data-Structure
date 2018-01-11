@@ -135,6 +135,16 @@ public class Practice {
 		}
 		System.out.println(" ");
 	}
+	public int removeDuplicatesFromSortedArray(int[] dataArry){
+		int nLength =  dataArry.length;
+		int j = 0;
+		for(int i=1;i<nLength;i++){
+			if(dataArry[j]!=dataArry[i]){
+				dataArry[++j] = dataArry[i];
+			}
+		}
+		return j+1;
+	}
 
 	public static void main(String str[]){
 		Practice obj = new Practice();
@@ -165,5 +175,11 @@ public class Practice {
 		
 		System.out.println("Sorted array having 012 using counting sort is ");
 		obj.sortAnArrayContaining012Counting(data012Count);
+		
+		
+		int nLength = obj.removeDuplicatesFromSortedArray(data012Count);
+		System.out.println("Length after removing duplicate is "+nLength);
+		
+		
 	}
 }
