@@ -145,6 +145,35 @@ public class Practice {
 		}
 		return j+1;
 	}
+	//constrain : all the numbers are in range of 1 to n
+	public void printDuplicateNumbersFromArray(int[] dataArry){
+		int nLength = dataArry.length;
+		for(int i=0;i<nLength;i++){
+			if(dataArry[dataArry[i]%nLength]>0){
+				dataArry[dataArry[i]%nLength]+=nLength;
+			}
+		}
+		System.out.print("Repeated Numbers are : ");
+		for(int i=0;i<nLength;i++){
+			if(dataArry[i]/nLength >1){
+				System.out.print(i+" ");
+			}
+		}
+		System.out.println(" ");
+	}
+	//given is an array of 1 to n numbers from which one number is missing
+	public int findMissingValue(int[] dataArry,int range){
+		int X = 0;
+		int nLength = dataArry.length;
+		int j=1;
+		for(int i=0;i<nLength;i++){
+			X^=j++;
+			X^=dataArry[i];
+		}
+		X^= range;
+//		System.out.println(X);
+		return X;
+	}
 
 	public static void main(String str[]){
 		Practice obj = new Practice();
@@ -177,9 +206,14 @@ public class Practice {
 		obj.sortAnArrayContaining012Counting(data012Count);
 		
 		
+		
 		int nLength = obj.removeDuplicatesFromSortedArray(data012Count);
 		System.out.println("Length after removing duplicate is "+nLength);
 		
+		int[] dataDup = {1,2,3,4,5,5,6,7,8,8,9};
+		obj.printDuplicateNumbersFromArray(dataDup);
 		
+		int[] dataMissing = {1,2,3,4,5,6,7,9,10};
+		System.out.println("Missing value is  "+obj.findMissingValue(dataMissing, 10));
 	}
 }
