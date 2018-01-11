@@ -1,5 +1,8 @@
 package searching;
 
+import random.Practice;
+import sortings.QuickSort;
+
 
 public class Problems extends Searches{
 	
@@ -32,9 +35,40 @@ public class Problems extends Searches{
 				nMaxIndex = i;
 			}
 		}
-		
 		//System.out.println(nMaxCount);
 		return nMaxIndex;
+	}
+	//3 int i,j,k sucha that i*i + j*j = k*k
+	public boolean findSumOfSquareInArray(int[] dataArry){
+		QuickSort obj = new QuickSort();
+		obj.sort(dataArry);
+		int nLength =  dataArry.length;
+		for(int i=0;i<nLength;i++){
+			dataArry[i]*= dataArry[i];
+		}
+		Practice objP = new Practice();
+		for(int i=0;i<nLength;i++){
+			if( objP.isSumAvailableInSortedArray(dataArry, dataArry[i])){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	public void find2ElementWithSumNearTo0(int[] dataArry){
+		int nLength = dataArry.length;
+		QuickSort obj = new QuickSort();
+		obj.sort(dataArry);
+		int j=0;
+		int i = nLength-1;
+		while(i>j){
+			
+		}
+		
+		
+		
 	}
 	
 	
@@ -46,5 +80,8 @@ public class Problems extends Searches{
 		int[] data1 = {0,1,2,3,4,5,6,7,8,9,10,5};
 		System.out.println("Array contains repeated number :"+obj.checkIfArrayHasRepeatedNumber(data1));
 		
+		
+		int[] dataSqr = {4,3,5,6};
+		System.out.println(obj.findSumOfSquareInArray(dataSqr));
 	}
 }
