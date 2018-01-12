@@ -105,7 +105,24 @@ public class Problems extends Searches{
 		return false;
 	}
 	
-	
+	public int getMiddleOfIncreasingDescreasingSeries(int[] dataArry){
+		int nLength = dataArry.length;
+		int nLeft = 0;
+		int nRight = nLength-1;
+		while(nRight>nLeft){
+			int nMid  = (nRight+nLeft)/2;
+			if(dataArry[nMid]>dataArry[nMid-1] && dataArry[nMid]>dataArry[nMid+1]){
+				return nMid;
+			}else if(dataArry[nMid-1]>dataArry[nMid] && dataArry[nMid+1]<dataArry[nMid]){
+				nLeft = nMid+1;
+			}else if(dataArry[nMid-1]<dataArry[nMid] && dataArry[nMid+1]>dataArry[nMid]){
+				nRight = nMid-1;
+			}else if(dataArry[nMid]<dataArry[nMid-1] && dataArry[nMid]<dataArry[nMid+1]){
+				return nMid+1;
+			}
+		}
+		return -1;
+	}
 
 	public static void main(String str[]){
 		Problems obj = new Problems();
@@ -127,7 +144,8 @@ public class Problems extends Searches{
 		int[] data3Sum = {1,2,3,4,0,6,9,5,15};
 		System.out.println("is 3 elements available having sum 29 :"+obj.is3ElementsAvailableWithSumK(data3Sum, 29));
 		
-		
+		int[] dataMiddle = {-1,-2,-3,-4,-5,1,2,3,4,5,7,8,9};
+		System.out.println("middle of the array is "+obj.getMiddleOfIncreasingDescreasingSeries(dataMiddle));
 		
 	}
 }
