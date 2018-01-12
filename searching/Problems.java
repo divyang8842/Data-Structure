@@ -153,13 +153,31 @@ public class Problems extends Searches{
 		return -1;
 	}
 	
-	//{8,9,10,11,12,13,14,16,17,18,19,20,15,7,6,5,4,3,2,1,0};
+	//{8,9,10,11,12,13,14,16,17,18,19,20,15,7,6,5,4,3,2,1,0}
 	public int findMaxInIncreasingDecreasingArray(int[] dataArry,int nLeft,int nRight){
+		int max = Integer.MIN_VALUE;
 		while(nLeft<=nRight){
-			
 			int nMid = (nRight+nLeft)/2;
+			
+			System.out.println(nLeft +"+"+nRight +" = 2* "+nMid);
+			if(max<dataArry[nMid]){
+				max = dataArry[nMid];
+			}
 			if(dataArry[nMid]>dataArry[nRight] && dataArry[nMid]>dataArry[nLeft]){
-				
+				nRight--;
+				nLeft++;
+			}else if(dataArry[nMid]>dataArry[nLeft] && dataArry[nMid]<dataArry[nRight]){
+				nLeft = nMid+1;
+			}else if(dataArry[nMid]<dataArry[nLeft] && dataArry[nMid]>dataArry[nRight]){
+				nRight = nMid-1;
+			}else if(nLeft==nMid || nRight==nMid){
+				return Math.max(dataArry[nLeft], dataArry[nRight]);
+			}else{
+				System.out.println(dataArry[nMid]);
+				if(max<dataArry[nMid]){
+					max = dataArry[nMid];
+				}
+				return max;
 			}
 			
 		}
@@ -214,6 +232,10 @@ public class Problems extends Searches{
 		int[] dataRotated = {5,6,7,8,9,10,11,12,13,0,1,2,3,4};
 		System.out.println("11 is available in the array at position "+obj.findInRotatedArray1(dataRotated, 0, 13, 11));
 		
-		int[] dataIncDec = {8,9,10,11,12,13,14,15,16,17,18,19,20,7,6,5,4,3,2,1,0};
+		
+		
+		int[] dataIncDec = {8,9,10,11,12,13,14,16,17,18,19,20,15,7,6,5,4,3,2,1,0};
+		System.out.println("Max in the increasing decreasing array is "+obj.findMaxInIncreasingDecreasingArray(dataIncDec, 0, 20));
+		
 	}
 }
