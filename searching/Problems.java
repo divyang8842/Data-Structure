@@ -105,6 +105,70 @@ public class Problems extends Searches{
 		return false;
 	}
 	
+	//rotated by n digits
+	public int findInRotatedArray(int[] dataArry,int nStart,int nEnd,int nFind){
+		
+		while(nStart<=nEnd){
+			if(dataArry[nStart]<nFind){
+				nStart++;
+			}
+			if(dataArry[nEnd]<nFind){
+				nEnd--;
+			}
+			if(dataArry[nStart]==nFind || dataArry[nEnd]==nFind){
+				return dataArry[nStart]==nFind?nStart:nEnd;
+			}
+		}
+		return -1;
+	}
+	
+	
+	//rotated by n digits {5,6,7,8,9,10,11,12,13,0,1,2,3,4}
+	public int findInRotatedArray1(int[] dataArry,int nStart,int nEnd,int nFind){
+		
+		
+		while(nStart<=nEnd){
+			if(dataArry[nStart]==nFind || dataArry[nEnd]==nFind){
+				return dataArry[nStart]==nFind?nStart:nEnd;
+			}
+			int nMid = (nEnd+nStart)/2;
+			
+			if(dataArry[nMid]>nFind){
+				if(dataArry[nStart]<dataArry[nMid]){
+					nStart = nMid+1;
+				}else{
+					nEnd = nMid-1;
+				}
+			}else if(dataArry[nMid]<nFind){
+				if(dataArry[nStart]<dataArry[nMid]){
+					nStart = nMid+1;
+				}else{
+					nEnd = nMid-1;
+				}
+			}else{
+				return nMid;
+			}
+			
+		}
+		return -1;
+	}
+	
+	//{8,9,10,11,12,13,14,16,17,18,19,20,15,7,6,5,4,3,2,1,0};
+	public int findMaxInIncreasingDecreasingArray(int[] dataArry,int nLeft,int nRight){
+		while(nLeft<=nRight){
+			
+			int nMid = (nRight+nLeft)/2;
+			if(dataArry[nMid]>dataArry[nRight] && dataArry[nMid]>dataArry[nLeft]){
+				
+			}
+			
+		}
+		
+		
+		return -1;
+	}
+	
+	
 	public int getMiddleOfIncreasingDescreasingSeries(int[] dataArry){
 		int nLength = dataArry.length;
 		int nLeft = 0;
@@ -147,5 +211,9 @@ public class Problems extends Searches{
 		int[] dataMiddle = {-1,-2,-3,-4,-5,1,2,3,4,5,7,8,9};
 		System.out.println("middle of the array is "+obj.getMiddleOfIncreasingDescreasingSeries(dataMiddle));
 		
+		int[] dataRotated = {5,6,7,8,9,10,11,12,13,0,1,2,3,4};
+		System.out.println("11 is available in the array at position "+obj.findInRotatedArray1(dataRotated, 0, 13, 11));
+		
+		int[] dataIncDec = {8,9,10,11,12,13,14,15,16,17,18,19,20,7,6,5,4,3,2,1,0};
 	}
 }
