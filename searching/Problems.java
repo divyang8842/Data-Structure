@@ -205,6 +205,43 @@ public class Problems extends Searches{
 		}
 		return -1;
 	}
+	
+	
+	public int getFirstOccuranceOfNumberInSortedArray(int[] dataArry,int nLength,int nNumber){ //duplicate entries are allowed
+		if(nLength<=0){
+			nLength =dataArry.length;
+		}
+		int nLeft = 0;
+		int nRight = nLength - 1;
+		while(nRight>nLeft){
+			int nMid = (nLeft+nRight)/2;
+			if(dataArry[nMid]==nNumber && (dataArry[nMid-1]<nNumber || nMid == nLeft )){
+				return nMid;
+			}else if(dataArry[nMid]>=nNumber){
+				nRight = nMid-1;
+			}else if(dataArry[nMid]<nNumber){
+				nLeft = nMid+1;
+			}
+		}
+		return -1;
+	}
+	
+	public int getLastOccuranceOfNumberInSortedArray(int[] dataArry,int nLength,int nNumber){ //duplicate entries are allowed
+		if(nLength<=0){
+			nLength =dataArry.length;
+		}
+		int nLeft = 0;
+		int nRight = nLength - 1;
+		while(nRight>nLeft){
+			int nMid = (nLeft+nRight)/2;
+			if(dataArry[nMid]>nNumber){
+				nRight = nMid-1;
+			}else if(dataArry[nMid]<=nNumber){
+				nLeft = nMid+1;
+			}
+		}
+		return -1;
+	}
 
 	public static void main(String str[]){
 		Problems obj = new Problems();
@@ -236,6 +273,13 @@ public class Problems extends Searches{
 		
 		int[] dataIncDec = {8,9,10,11,12,13,14,16,17,18,19,20,15,7,6,5,4,3,2,1,0};
 		System.out.println("Max in the increasing decreasing array is "+obj.findMaxInIncreasingDecreasingArray(dataIncDec, 0, 20));
+		
+		
+		int[] data1StOcc = {-1,-2,-3,0,1,2,3,4,4,4,4,4,4,4,5};
+		System.out.println("Fist occurance of 4 is "+obj.getFirstOccuranceOfNumberInSortedArray(data1StOcc, -1, 4));
+		
+		
+		System.out.println("Fist occurance of 4 is "+obj.getLastOccuranceOfNumberInSortedArray(data1StOcc, -1, 4));
 		
 	}
 }
