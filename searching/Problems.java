@@ -361,8 +361,50 @@ public class Problems extends Searches{
 			}
 		}
 	}
+	//{1,2,3,4,5,6,7,8} = > {1,5,2,6,3,7,4,8}
 	
+	//1 5 3 4 2 6 7 8
+	//1 5 2 4 3 6 7 8
 	
+	//the array is having 2n(even) length
+	public void shuffleArrayFromHalf(int[] dataArry,int nLength){
+		if(nLength<=0){
+			nLength = dataArry.length;
+		}
+		int i=0,j=0;
+		while(j<nLength){
+			j+=2;
+			i++;
+		}
+		if(j==nLength){
+			i++;
+		}
+		//i is at middle point
+		j = i+1;
+		i=0;
+		
+		shuffleHelper(dataArry, i, j);
+	}
+	private void shuffleHelper(int[] dataArry,int nLeft,int nRight){
+		int i = nLeft;
+		int j = nRight;
+		int nMid = (nRight-nLeft)/2  -1;
+		if(nMid<=0){
+			return;
+		}
+		
+		for(int k=0;k<nMid;k++){
+			swap(dataArry,i++,j++);
+		}
+		shuffleHelper(dataArry, nLeft, nRight-1);
+		shuffleHelper(dataArry, nRight, nRight+nMid);
+	}
+	
+	private void swap(int[] arry,int i, int j){
+		arry[i] = arry[i] + arry[j];
+		arry[j] = arry[i] - arry[j];
+		arry[i] = arry[i] - arry[j];
+	}
 	 // A utility function to print an array
      void print(int arr[])
     {
@@ -428,5 +470,10 @@ public class Problems extends Searches{
 		int[] dataEvenOdd = {1,2,3,4,5,6,7,8,9,10};
 		obj.separateEvenOdd(dataEvenOdd, -1);
 		obj.print(dataEvenOdd);
+		
+		int[] dataShuffle = {1,2,3,4,5,6,7,8,9,10};
+		obj.shuffleArrayFromHalf(dataShuffle, -1);
+		System.out.println(" ");
+		obj.print(dataShuffle);
 	}
 }
