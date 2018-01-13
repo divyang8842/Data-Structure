@@ -226,15 +226,35 @@ public class Problems extends Searches{
 		return -1;
 	}
 	
+	public int findSecondSmallestNumber(int[] dataArry,int nLength){
+		if(nLength<=0){
+			nLength = dataArry.length;
+		}
+		int nMin = Integer.MAX_VALUE,nSecondMin = Integer.MAX_VALUE;
+		for(int i=0;i<nLength;i++){
+			if(dataArry[i]<nMin){
+				nSecondMin = nMin;
+				nMin = dataArry[i];
+			}else if(dataArry[i]<nSecondMin){
+				nSecondMin = dataArry[i];
+			}
+		}
+		return nSecondMin;
+	}
+	
 	public int getLastOccuranceOfNumberInSortedArray(int[] dataArry,int nLength,int nNumber){ //duplicate entries are allowed
 		if(nLength<=0){
 			nLength =dataArry.length;
 		}
 		int nLeft = 0;
 		int nRight = nLength - 1;
+		
+		
 		while(nRight>nLeft){
 			int nMid = (nLeft+nRight)/2;
-			if(dataArry[nMid]>nNumber){
+			if(dataArry[nMid]==nNumber && (dataArry[nMid+1]>nNumber || nMid == nRight )){
+				return nMid;
+			}else if(dataArry[nMid]>nNumber){
 				nRight = nMid-1;
 			}else if(dataArry[nMid]<=nNumber){
 				nLeft = nMid+1;
@@ -279,7 +299,7 @@ public class Problems extends Searches{
 		System.out.println("Fist occurance of 4 is "+obj.getFirstOccuranceOfNumberInSortedArray(data1StOcc, -1, 4));
 		
 		
-		System.out.println("Fist occurance of 4 is "+obj.getLastOccuranceOfNumberInSortedArray(data1StOcc, -1, 4));
-		
+		System.out.println("Second occurance of 4 is "+obj.getLastOccuranceOfNumberInSortedArray(data1StOcc, -1, 4));
+		System.out.println("Second min int hte array is "+obj.findSecondSmallestNumber(data1StOcc, -1));
 	}
 }
