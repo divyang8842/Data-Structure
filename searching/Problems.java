@@ -309,6 +309,22 @@ public class Problems extends Searches{
 		return nLocalMin;
 	}
 	
+	//increased seq in rols as well as in column
+	public boolean findElementInIncreamenting2dArry(int[][] dataArry,int x,int y,int element){
+		int i=0,j=0;
+		while(i<y && j<x){
+			if(dataArry[j][i]==element){
+				System.out.println("X : "+j+" , Y:"+i);
+				return true;
+			}else if(i+1 >= y ||  dataArry[j][i+1]>element){
+				j++;
+			}else {
+				i++;
+			}
+		}
+		return false;
+	}
+	
 	public static void main(String str[]){
 		Problems obj = new Problems();
 		int[] data = {1,1,1,1,1,2,3,4,5,6,7,8,9,10,11,11,11,11,11,11,11,11,11,11,11,11};
@@ -355,5 +371,9 @@ public class Problems extends Searches{
 		
 		int[] dataLocalMin = {1,3,2,4,0,5,7,9};
 		System.out.println("Local min in array is "+obj.getLocalMinimus(dataLocalMin, 0, dataLocalMin.length-1));
+		
+		
+		int[][] data2DArry = {{1,4,7,10},{2,5,8,11},{3,6,9,12}};
+		System.out.println(" 12 is available in 2d array : "+obj.findElementInIncreamenting2dArry(data2DArry, 3, 4, 12));
 	}
 }
