@@ -316,7 +316,7 @@ public class Problems extends Searches{
 			if(dataArry[j][i]==element){
 				System.out.println("X : "+j+" , Y:"+i);
 				return true;
-			}else if(i+1 >= y ||  dataArry[j][i+1]>element){
+			}else if(i+1 >= y ||  dataArry[j][i]>element){
 				j++;
 			}else {
 				i++;
@@ -325,6 +325,52 @@ public class Problems extends Searches{
 		return false;
 	}
 	
+	//in all rows, 1's are followed by 0's
+	public int findRowWithMax0(int[][] dataArry,int x,int y){
+		int i=x-1,j=y-1;
+		int maxRow = i;
+		while(i>0 && j>0){
+			if(dataArry[i][j]==0){
+				maxRow = i;
+				j--;
+			}else{
+				i--;
+			}
+		}
+		return maxRow;
+	}
+	
+	public void separateEvenOdd(int[] dataArry,int nLength){
+		if(nLength<=0){
+			nLength = dataArry.length;
+		}
+		
+		int i = 0;
+		int j = nLength - 1;
+		while(j>i){
+			while(dataArry[i]%2==0){
+				i++;
+			}
+			while(dataArry[j]%2==1){
+				j--;
+			}
+			if(j>i){
+				dataArry[j]+=dataArry[i];
+				dataArry[i] = dataArry[j] - dataArry[i];
+				dataArry[j] = dataArry[j] - dataArry[i];
+			}
+		}
+	}
+	
+	
+	 // A utility function to print an array
+     void print(int arr[])
+    {
+    	 int nLength = arr.length;
+        for (int i=0; i<nLength; i++)
+            System.out.print(arr[i]+" ");
+    }
+ 
 	public static void main(String str[]){
 		Problems obj = new Problems();
 		int[] data = {1,1,1,1,1,2,3,4,5,6,7,8,9,10,11,11,11,11,11,11,11,11,11,11,11,11};
@@ -375,5 +421,12 @@ public class Problems extends Searches{
 		
 		int[][] data2DArry = {{1,4,7,10},{2,5,8,11},{3,6,9,12}};
 		System.out.println(" 12 is available in 2d array : "+obj.findElementInIncreamenting2dArry(data2DArry, 3, 4, 12));
+		
+		int[][] dataArry01 = {{1,1,1,0,0,0,0},{1,0,0,0,0,0,0},{1,1,0,0,0,0,0}};
+		System.out.println("Row with max 0 is "+obj.findRowWithMax0(dataArry01, 3, 7));
+		
+		int[] dataEvenOdd = {1,2,3,4,5,6,7,8,9,10};
+		obj.separateEvenOdd(dataEvenOdd, -1);
+		obj.print(dataEvenOdd);
 	}
 }
