@@ -285,7 +285,24 @@ public class Problems extends Searches{
 
 	        return candidate;
 	}
-
+	//x^x= 0
+	public int getTheLonelyElement(int[] arry){
+		int lonely = 0;
+		for(int num : arry){
+			lonely^=num;
+		}
+		
+		return lonely;
+	}
+	
+	public int getLocalMinimus(int[] dataArry,int nLength){
+		if(nLength<=0){
+		}
+		
+		
+		return -1;
+	}
+	
 	public static void main(String str[]){
 		Problems obj = new Problems();
 		int[] data = {1,1,1,1,1,2,3,4,5,6,7,8,9,10,11,11,11,11,11,11,11,11,11,11,11,11};
@@ -325,5 +342,9 @@ public class Problems extends Searches{
 		System.out.println("Last occurance of 4 is "+obj.getLastOccuranceOfNumberInSortedArray(data1StOcc, -1, 4));
 		System.out.println("Second min int hte array is "+obj.findSecondSmallestNumber(data1StOcc, -1));
 		System.out.println("Majority element is "+obj.getMajorityElement(data1StOcc, -1));
+		
+		int[] dataLonely = {1,1,2,2,3,3,4,4,5,5,8,8,6,6,7,9,9};
+		System.out.println("Lonely element int the array is "+obj.getTheLonelyElement(dataLonely));
+		
 	}
 }
