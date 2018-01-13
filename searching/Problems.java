@@ -295,12 +295,18 @@ public class Problems extends Searches{
 		return lonely;
 	}
 	
-	public int getLocalMinimus(int[] dataArry,int nLength){
-		if(nLength<=0){
+	public int getLocalMinimus(int[] dataArry,int nLeft,int nRight){
+		int nLocalMin = -1;
+		int nMid = (nLeft+nRight)/2;
+		if(nMid==nLeft || nMid==nRight){
+			return -1;
 		}
-		
-		
-		return -1;
+		if(dataArry[nMid]>dataArry[nMid-1] && dataArry[nMid]<dataArry[nMid+1]){
+			nLocalMin = dataArry[nMid];
+		}else if( (nLocalMin = getLocalMinimus(dataArry, nLeft, nMid)) <=0){
+			nLocalMin = getLocalMinimus(dataArry, nMid+1, nRight);
+		}
+		return nLocalMin;
 	}
 	
 	public static void main(String str[]){
@@ -346,5 +352,8 @@ public class Problems extends Searches{
 		int[] dataLonely = {1,1,2,2,3,3,4,4,5,5,8,8,6,6,7,9,9};
 		System.out.println("Lonely element int the array is "+obj.getTheLonelyElement(dataLonely));
 		
+		
+		int[] dataLocalMin = {1,3,2,4,0,5,7,9};
+		System.out.println("Local min in array is "+obj.getLocalMinimus(dataLocalMin, 0, dataLocalMin.length-1));
 	}
 }
