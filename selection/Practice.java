@@ -39,11 +39,30 @@ public class Practice {
 		System.out.println("Min is "+nMin +" & Max is "+nMax);
 	}
 	
+	
+	public int findLargestElement(int[] dataArry,int nLength){
+		if(nLength<=0){
+			nLength = dataArry.length;
+		}
+		int nMax = Integer.MIN_VALUE;
+		int i=0;
+		while(i<nLength && i+1<nLength){
+			nMax =  Math.max(nMax, Math.max(dataArry[i],dataArry[i+1]));
+			i+=2;
+		}
+		if(nLength%2!=0){
+			nMax = Math.max(nMax, dataArry[nLength-1]);
+		}
+		return nMax;
+	}
+	
 	public static void main(String str[]){
 		Practice obj = new Practice();
 		
 		int[] dataMinMax = {1,4,7,2,5,8,3,6,9,15,10};
 		obj.findTheLArgestAndmallestElement(dataMinMax, -1);
+		
+		System.out.println("MAx in the array is "+obj.findLargestElement(dataMinMax, 0));
 	}
 	
 }
