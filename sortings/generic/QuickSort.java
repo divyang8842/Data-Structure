@@ -17,10 +17,8 @@ public class QuickSort<T extends Comparable<T>> implements Sorting<T>{
 			doQuickSort(dataArray, nPivot+1, nRight);
 	}
 	
-	private int doPartition(T[] dataArry,int nLow,int nHigh){
-		int nPivot = nLow;
-		int nLeft = nLow;
-		int nRight = nHigh;
+	private int doPartition(T[] dataArry,int nLeft,int nRight){
+		int nPivot = nLeft;
 		T pivotItem = dataArry[nPivot];
 		while(nRight>nLeft){
 			
