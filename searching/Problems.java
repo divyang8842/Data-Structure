@@ -1,6 +1,8 @@
 package searching;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import random.Practice;
 import sortings.QuickSort;
@@ -400,6 +402,36 @@ public class Problems extends Searches{
 		shuffleHelper(dataArry, nRight, nRight+nMid);
 	}
 	
+	
+	public int getMaxOfMin(int[] dataArry,int nLength,int nWindowSize){
+		if(nLength<=0){
+			nLength = dataArry.length;
+		}
+		Queue<Integer> subArray =  new LinkedList<Integer>();
+		int i = 0;
+		int nMax = Integer.MIN_VALUE;;
+		while(i<nWindowSize){
+			while(!subArray.isEmpty() && dataArry[i]<=subArray.peek()){
+				subArray.poll();
+			}
+			subArray.add(dataArry[i++]);
+		}
+		
+		for(;i<nLength;i++){
+			if(nMax < subArray.peek()){
+				nMax = subArray.peek();
+			}
+			while(subArray.size()>nWindowSize){
+				subArray.poll();
+			}
+			while(!subArray.isEmpty() && dataArry[i]<=subArray.peek()){
+				subArray.poll();
+			}
+			subArray.add(dataArry[i]);
+		}
+		return nMax;
+	}
+	
 	private void swap(int[] arry,int i, int j){
 		arry[i] = arry[i] + arry[j];
 		arry[j] = arry[i] - arry[j];
@@ -473,7 +505,11 @@ public class Problems extends Searches{
 		
 		int[] dataShuffle = {1,2,3,4,5,6,7,8,9,10};
 		obj.shuffleArrayFromHalf(dataShuffle, -1);
-		System.out.println(" ");
+		System.out.println(" ----");
 		obj.print(dataShuffle);
+		System.out.println(" ----");
+		
+		int[] dataMaxOfMin = {1,2,3,8,5,6,1,1,3,2,5};
+		System.out.println("Max of min in subarrays is"+ obj.getMaxOfMin(dataMaxOfMin, 0, 4));
 	}
 }
