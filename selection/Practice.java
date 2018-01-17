@@ -91,6 +91,41 @@ public class Practice {
 		return nPivot;
 	}
 	
+	public int getNthLargestElement(int[] dataArry, int nLeft,int nRight,int nLength,int n){
+		if(nLength<=0){
+			nLength = dataArry.length;
+		}
+		int nPivot = getNthLargetstElementHelper(dataArry, nLeft, nRight);
+		if(nPivot== nLength - n){
+			return dataArry[nPivot];
+		}else if(nPivot > nLength - n){
+			return getNthLargestElement(dataArry, nLeft, nPivot-1, nLength, n);
+		}else{
+			return getNthLargestElement(dataArry, nPivot+1, nRight, nLength, n);
+		}
+	}
+	
+	private int getNthLargetstElementHelper(int[] dataArry,int nLeft,int nRight){
+		int nPivot = nLeft;
+		int nPivotItem = dataArry[nPivot];
+		while(nRight>nLeft){
+			while(dataArry[nRight]>nPivotItem){
+				nRight--;
+			}
+			while(dataArry[nLeft]<=nPivotItem){
+				nLeft++;
+			}
+			if(nLeft>nRight){
+				dataArry[nPivot] = dataArry[nRight];
+				dataArry[nRight] = nPivotItem;
+				nPivot = nRight;
+			}else{
+				swap(dataArry, nRight, nLeft);
+			}
+		}
+		
+		return nPivot;
+	}
 	
 	private void swap(int[] dataArry,int nIndex1,int nIndex2){
 		if(nIndex1!=nIndex2){
@@ -117,7 +152,9 @@ public class Practice {
 		System.out.println("MAx in the array is "+obj.findLargestElement(dataMinMax, 0));
 		obj.findNSmallestElementsInArray(dataMinMax,0, dataMinMax.length-1, 4);
 		obj.printArry(dataMinMax);
-	
+		
+		int[] dataNthLargets = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+		System.out.println("3rd largest element for array is "+obj.getNthLargestElement(dataNthLargets, 0, 12, 13, 3));
 	}
 	
 }
