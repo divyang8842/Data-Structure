@@ -106,19 +106,19 @@ public class Practice {
 	}
 	
 	private int getNthLargetstElementHelper(int[] dataArry,int nLeft,int nRight){
-		int nPivot = nLeft;
+		int nPivot = nRight;
 		int nPivotItem = dataArry[nPivot];
 		while(nRight>nLeft){
-			while(dataArry[nRight]>nPivotItem){
+			while(dataArry[nRight]>=nPivotItem){
 				nRight--;
 			}
-			while(dataArry[nLeft]<=nPivotItem){
+			while(dataArry[nLeft]<nPivotItem){
 				nLeft++;
 			}
 			if(nLeft>nRight){
-				dataArry[nPivot] = dataArry[nRight];
-				dataArry[nRight] = nPivotItem;
-				nPivot = nRight;
+				dataArry[nPivot] = dataArry[nLeft];
+				dataArry[nLeft] = nPivotItem;
+				nPivot = nLeft;
 			}else{
 				swap(dataArry, nRight, nLeft);
 			}
