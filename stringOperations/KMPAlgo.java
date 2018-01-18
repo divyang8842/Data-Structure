@@ -19,7 +19,7 @@ public class KMPAlgo {
 		return f;
 	}
 	
-	private int KMP(char T[],int n,char P[],int m){
+	public int KMP(char T[],int n,char P[],int m){
 		int i=0;
 		int j=0;
 		int[] F = prefix_Table(P, m);
