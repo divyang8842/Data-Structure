@@ -24,6 +24,10 @@ public class TrieNode {
 		}
 		return null;
 	}
+	
+	public void addChild(TrieNode child){
+		this.child.add(child);
+	}
 
 	public char getData() {
 		return cData;
