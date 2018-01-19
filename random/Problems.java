@@ -2,6 +2,7 @@ package random;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 public class Problems {
 	public void sortRoyalNames(String nameAry[]){
@@ -85,13 +86,76 @@ public class Problems {
 		}
 		System.out.println(" ");
 	}
+    
+    public void printLL(LinkedList dataLL){
+		int nLength =  dataLL.size();
+		for(int i=0;i<nLength;i++){
+			System.out.print(dataLL.get(i)+" ");
+		}
+		System.out.println(" ");
+	}
+    
+    
+	public void AddLinkedList(LinkedList<Integer> AddedLinkedList,LinkedList<Integer> LL1,int nPos1,LinkedList<Integer> LL2,int nPos2,int nCarry){
+		if(nPos1<0 && nPos2<0){
+			nPos1 = LL1.size()-1;
+			nPos2 = LL2.size()-1;
+		}
+		if(AddedLinkedList == null){
+			AddedLinkedList = new LinkedList<Integer>();
+		}
+		int nData = 0;
+		int nSum = 0;
+		
+		if(nPos1>=0 && nPos2>=0){
+			nSum = LL1.get(nPos1)+LL2.get(nPos2)+nCarry;
+			nCarry = nSum/10;
+			nData = nSum%10;
+			nPos1--;
+			nPos2--;
+		}else if(nPos1>=0){
+			nSum = LL1.get(nPos1)+nCarry;
+			nCarry = nSum/10;
+			nData  = nSum%10;
+			nPos1--;
+		}else if(nPos2>=0){
+			nSum = LL1.get(nPos2)+nCarry;
+			nCarry = nSum/10;
+			nData  = nSum%10;
+			nPos2--;
+		}else{
+			return;
+		}
+		
+		if(nPos1 >=0 || nPos2>=0){
+			AddLinkedList(AddedLinkedList, LL1, nPos1, LL2, nPos2, nCarry);
+		}else if(nCarry>0){
+			AddedLinkedList.add(nCarry);
+		}
+		
+		AddedLinkedList.add(nData);
+	}
+	
+	
 	
     
     public static void main(String str[]){
     	Problems obj = new Problems();
-    	String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
+    	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
     	obj.sortRoyalNames(names);
     	obj.printArry(names);
+    	*/
+    	LinkedList<Integer> LL1 = new LinkedList<Integer>();
+    	LL1.add(1);
+    	LL1.add(9);
+    	
+    	LinkedList<Integer> LL2 = new LinkedList<Integer>();
+    	LL2.add(8);
+    	LL2.add(1);
+    	
+    	LinkedList<Integer> LLAdd = new LinkedList<Integer>();
+    	obj.AddLinkedList(LLAdd, LL1, -1, LL2, -1, 0);
+    	obj.printLL(LLAdd);
     }
 	
 }
