@@ -32,4 +32,21 @@ public class TST {
 		}
 		return root;
 	}
+	
+	public boolean searchInTST(TSTNode root, String strWord,int nPosition){
+		if(root!=null){
+			if(strWord.charAt(nPosition)>root.getcData()){
+				return searchInTST(root.getright(), strWord, nPosition+1);
+			}else if(strWord.charAt(nPosition)<root.getcData()){
+				return searchInTST(root.getleft(), strWord, nPosition+1);
+			}else{
+				if(nPosition == strWord.length() && root.isB_is_End_Of_String()){
+					return true;
+				}else{
+					return searchInTST(root.getEq(), strWord, nPosition+1);
+				}
+			}
+		}
+		return false;
+	}
 }
