@@ -253,6 +253,27 @@ public class Problems {
 		}
 		return bracesList.size()==0;
 	}
+	
+	public int MaximumTipCalculator(int N,int X,int Y,int[] A,int[] B){
+		int nLengthA = A.length;
+		int nLengthB = B.length;
+		int nAMinus = 0;
+		int nBMinus = 0;
+		int nSum = 0;
+		for(int i=0;i<N;i++){
+			if(nAMinus <= nLengthA && A[i] >= B[i]){
+				nSum+= A[i];
+				nAMinus++;
+			}else if(nBMinus <= nLengthB){
+				nSum+= B[i];
+				nBMinus++;
+			}else if(nBMinus == nLengthB && nAMinus == nLengthA){
+				break;
+			}
+		}
+		
+		return nSum;
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -289,6 +310,10 @@ public class Problems {
     	map.put('[', ']');
     	
     	System.out.println("123(45{67}89) is balanced "+obj.isStringBalanced(map, "123(45{67}89)"));
+    	int[] A = {1,4,3,2,7,5,9,6};
+    	int[] B = {1,2,3,6,5,4,9,8};
+    	System.out.println("Max tip is "+obj.MaximumTipCalculator(8, 4, 4, A, B));
+    	
     }
 	
 }
