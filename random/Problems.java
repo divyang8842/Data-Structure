@@ -136,8 +136,41 @@ public class Problems {
 		AddedLinkedList.add(nData);
 	}
 	
+	/*//1=a,....,26 = z
+	public int getPossibleNumberOfWordsFromNumberString(String strData){
+		
+	}*/
 	
+	private final String[] strNumberPad = {"", "", "abc", "def", "ghi", "jkl",
+            "mno", "pqrs", "tuv", "wxyz"};
 	
+	private String getPossibleCharString(int number){
+		if(number>=0 && number<=9) 
+			return strNumberPad[number];
+		else
+			return "";
+	}
+	
+	public void findAllPossibleNumberFromTelephoneNumberPad(int[] dataArry,int nPos,int nLength,String strData){
+		if(nPos<0){
+			nPos = 0;
+		}
+		if(nLength<=0){
+			nLength = dataArry.length;
+		}
+		
+		if(nLength == nPos){
+			System.out.println(strData);
+			return;
+		}
+		char[] strChars = getPossibleCharString(dataArry[nPos]).toCharArray();
+		int nChars = strChars.length;
+		nPos++;
+		while(nChars-->0){
+			findAllPossibleNumberFromTelephoneNumberPad(dataArry, nPos, nLength, strData+strChars[nChars]);
+		}
+		
+	}
     
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -145,17 +178,21 @@ public class Problems {
     	obj.sortRoyalNames(names);
     	obj.printArry(names);
     	*/
-    	LinkedList<Integer> LL1 = new LinkedList<Integer>();
+    	/*LinkedList<Integer> LL1 = new LinkedList<Integer>();
     	LL1.add(1);
     	LL1.add(9);
     	
     	LinkedList<Integer> LL2 = new LinkedList<Integer>();
-    	LL2.add(8);
+    	LL2.add(1);
+    	LL2.add(9);
     	LL2.add(1);
     	
     	LinkedList<Integer> LLAdd = new LinkedList<Integer>();
     	obj.AddLinkedList(LLAdd, LL1, -1, LL2, -1, 0);
-    	obj.printLL(LLAdd);
+    	obj.printLL(LLAdd);*/
+    	int[] ndata = {2};
+    	obj.findAllPossibleNumberFromTelephoneNumberPad(ndata, 0, -1, "");
+    	
     }
 	
 }
