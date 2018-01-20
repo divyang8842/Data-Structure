@@ -299,7 +299,30 @@ public class BinaryTree<T extends Number> {
 			}
 		}
 	}
+	//(n + 1) * (n + 2) * ··· * 2n / (n + 1)!
+	public int findNumberOfUniqueBinaryTree(int nNumbers){
+		 long result = 1;
+	      for(int i = nNumbers + 1; i <= 2 * nNumbers; i ++) {
+	          result *= i;
+	          result /= (i - nNumbers);
+	      }
+	      result /= nNumbers + 1;
+	      return (int)result;
+	}
 	
+	public BinaryTreeNode<Integer> findLeastCommonAncestor(BinaryTreeNode<Integer> root,BinaryTreeNode<Integer> data1,BinaryTreeNode<Integer> data2){
+		if(root != null){
+			if(root.getData() == data1.getData() || root.getData() ==  data2.getData()){
+				return root;
+			}else if(root.getData() > Math.max(data1.getData(), data2.getData())){
+				root = root.getLeft();
+			}else if(root.getData() < Math.min(data1.getData(), data2.getData())){
+				root = root.getRight();
+			}
+		}
+		return root;
+	}
+
 	public static void main(String srgs[]){
 		
 		BinaryTree<Integer> bTree = new BinaryTree<Integer>();
