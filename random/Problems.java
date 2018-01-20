@@ -2,7 +2,9 @@ package random;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class Problems {
@@ -228,6 +230,29 @@ public class Problems {
 		System.out.println(sbOP);
 		return sbOP.toString();
 	}
+	
+	
+	
+	public boolean isStringBalanced(HashMap<Character,Character> balance, String strData){
+		int nLength = strData.length();
+		int nIndex = 0;
+		int nListLengh = 0;
+		List<Character> bracesList =  new LinkedList<Character>();
+		while(nIndex<nLength){
+			if(balance.containsKey(strData.charAt(nIndex))){
+				bracesList.add(strData.charAt(nIndex));
+				nListLengh++;
+			}else if(balance.containsValue(strData.charAt(nIndex))){
+				if(balance.get(bracesList.get(nListLengh-1)) == strData.charAt(nIndex)){
+					bracesList.remove(--nListLengh);
+				}else{
+					return false;
+				}
+			}
+			nIndex++;
+		}
+		return bracesList.size()==0;
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -247,15 +272,23 @@ public class Problems {
     	LinkedList<Integer> LLAdd = new LinkedList<Integer>();
     	obj.AddLinkedList(LLAdd, LL1, -1, LL2, -1, 0);
     	obj.printLL(LLAdd);*/
-    	/*int[] ndata = {2};
-    	obj.findAllPossibleNumberFromTelephoneNumberPad(ndata, 0, -1, "");*/
+    	/* 
+    	int[] ndata = {2};
+    	obj.findAllPossibleNumberFromTelephoneNumberPad(ndata, 0, -1, "");
+    	*/
     	
-    	/*int[][] dataArry = {{1,4,7,10},{2,5,8,11},{3,6,9,12}};
+    	/* 
+    	int[][] dataArry = {{1,4,7,10},{2,5,8,11},{3,6,9,12}};
     	int[] result = obj.mergeKSortedArrays(dataArry);
     	obj.printArry(result);*/
     	
-    	obj.findNextNumberInSeq("13112221");
+    	//obj.findNextNumberInSeq("13112221");
+    	HashMap<Character, Character> map =  new HashMap<Character, Character>();
+    	map.put('(', ')');
+    	map.put('{', '}');
+    	map.put('[', ']');
     	
+    	System.out.println("123(45{67}89) is balanced "+obj.isStringBalanced(map, "123(45{67}89)"));
     }
 	
 }
