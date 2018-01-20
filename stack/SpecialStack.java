@@ -1,4 +1,4 @@
-package random;
+package stack;
 
 public class SpecialStack {
 	private int[] stackData;
