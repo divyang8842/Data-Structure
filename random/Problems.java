@@ -195,8 +195,40 @@ public class Problems {
 		 }
 		 return mergedArry;
 	}
+	
+	/* 	 	 1
+		    11
+		    21
+		  1211
+		111221
+		312211
+	  13112221
+	1113213211 */
+	public String findNextNumberInSeq(String strData){
+		int nLength = strData.length();
+		int i = 0;
+		int nCount = 0;
+		char current = ' ';
+		StringBuffer sbOP = new StringBuffer();
+		while(i<nLength){
+			if(current == strData.charAt(i)){
+				nCount++;
+			}else{
+				if(nCount>0){
+					sbOP.append(nCount).append(current);
+				}
+				nCount = 1;
+				current = strData.charAt(i);
+			}
+			i++;
+		}
+		if(nCount>0){
+			sbOP.append(nCount).append(current);
+		}
+		System.out.println(sbOP);
+		return sbOP.toString();
+	}
 
-    
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
@@ -218,9 +250,11 @@ public class Problems {
     	/*int[] ndata = {2};
     	obj.findAllPossibleNumberFromTelephoneNumberPad(ndata, 0, -1, "");*/
     	
-    	int[][] dataArry = {{1,4,7,10},{2,5,8,11},{3,6,9,12}};
+    	/*int[][] dataArry = {{1,4,7,10},{2,5,8,11},{3,6,9,12}};
     	int[] result = obj.mergeKSortedArrays(dataArry);
-    	obj.printArry(result);
+    	obj.printArry(result);*/
+    	
+    	obj.findNextNumberInSeq("13112221");
     	
     }
 	
