@@ -274,6 +274,40 @@ public class Problems {
 		
 		return nSum;
 	}
+	
+	public int getNumberOfDigitswithPrimeBinarySet(int nMin, int nMax){
+		int nCount = 0;
+		for(int i=nMin;i<=nMax;i++){
+			String strBinary =  Integer.toBinaryString(i);
+			int nSetBits = strBinary.length() - strBinary.replace("1", "").length();
+			if(isPrimeNumber(nSetBits)){
+				nCount++;
+			}
+		}
+		
+		return nCount;
+	}
+	
+
+	private boolean isPrimeNumber(int nData){
+		
+		if(nData<2){
+			return false;
+		}
+		if(nData==2){
+			return true;
+		}
+		
+		if(nData%2==0){
+			return false;
+		}
+		for(int i=3;i*i<=nData;i+=2){
+			if(nData%i==0){
+				return false;
+			}
+		}
+		return true;
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
