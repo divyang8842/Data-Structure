@@ -3,6 +3,7 @@ package random;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 public class Problems {
 	public void sortRoyalNames(String nameAry[]){
@@ -80,6 +81,14 @@ public class Problems {
     }
     
     public void printArry(String[] dataArry){
+		int nLength =  dataArry.length;
+		for(int i=0;i<nLength;i++){
+			System.out.print(dataArry[i]+" ");
+		}
+		System.out.println(" ");
+	}
+    
+    public void printArry(int[] dataArry){
 		int nLength =  dataArry.length;
 		for(int i=0;i<nLength;i++){
 			System.out.print(dataArry[i]+" ");
@@ -169,8 +178,24 @@ public class Problems {
 		while(nChars-->0){
 			findAllPossibleNumberFromTelephoneNumberPad(dataArry, nPos, nLength, strData+strChars[nChars]);
 		}
-		
 	}
+	
+	public int[] mergeKSortedArrays(int[][] dataArry){
+		 PriorityQueue<Integer> queue =  new PriorityQueue<Integer>();
+		 int nLength = dataArry.length;
+		 int nArrayLength =  dataArry[0].length;
+		 int n = nLength*nArrayLength;
+		 
+		 for(int i=0;i<n;i++){
+			 queue.add(dataArry[i/nArrayLength][i%nArrayLength]);
+		 }
+		 int[] mergedArry =  new int[n];
+		 for(int i=0;i<n;i++){
+			 mergedArry[i] = queue.poll();
+		 }
+		 return mergedArry;
+	}
+
     
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -190,8 +215,12 @@ public class Problems {
     	LinkedList<Integer> LLAdd = new LinkedList<Integer>();
     	obj.AddLinkedList(LLAdd, LL1, -1, LL2, -1, 0);
     	obj.printLL(LLAdd);*/
-    	int[] ndata = {2};
-    	obj.findAllPossibleNumberFromTelephoneNumberPad(ndata, 0, -1, "");
+    	/*int[] ndata = {2};
+    	obj.findAllPossibleNumberFromTelephoneNumberPad(ndata, 0, -1, "");*/
+    	
+    	int[][] dataArry = {{1,4,7,10},{2,5,8,11},{3,6,9,12}};
+    	int[] result = obj.mergeKSortedArrays(dataArry);
+    	obj.printArry(result);
     	
     }
 	
