@@ -308,6 +308,34 @@ public class Problems {
 		}
 		return true;
 	}
+	
+	
+	public char getKthCharAfterNIteration(int nData,int N,int K){
+		String strData =  Integer.toBinaryString(nData);
+		StringBuilder sbData = new StringBuilder(strData);
+		int nLength = strData.length();
+		for(int i=0;i<N;i++){
+			
+			
+			for(int j=0;j<nLength;j++){
+				if(strData.charAt(j)=='0'){
+					sbData.append("01");
+				}else{
+					sbData.append("10");
+				}
+			}
+			strData = sbData.toString();
+			nLength = strData.length();
+			sbData.delete(0, nLength-1);
+
+		}
+		return strData.charAt(K);
+	}
+	
+	public void printMatrixAfterKLeftRotations(String strData,int M,int N,int K){
+		String[] strArry =  strData.split(" ");
+		
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -347,7 +375,7 @@ public class Problems {
     	int[] A = {1,4,3,2,7,5,9,6};
     	int[] B = {1,2,3,6,5,4,9,8};
     	System.out.println("Max tip is "+obj.MaximumTipCalculator(8, 4, 4, A, B));
-    	
+    	System.out.println(obj.getKthCharAfterNIteration(11, 6, 4));
     }
 	
 }
