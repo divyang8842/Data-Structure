@@ -379,6 +379,30 @@ public class Problems {
 		System.out.println(nSupreStar);
 		
 	}
+	
+	public void rotateMatrixBy90Degree(int[][] dataArry){
+		int nX = dataArry.length;
+		for(int i=0;i<nX;i++){
+			for(int j=i;j<nX-i-1;j++){
+				int temp = dataArry[i][j];
+				dataArry[i][j] = dataArry[j][nX-1-i];
+				dataArry[j][nX-1-i] = dataArry[nX-1-i][nX-1-j];
+				dataArry[nX-1-i][nX-1-j] = dataArry[nX-1-j][i];
+				dataArry[nX-1-j][i] = temp;
+			}
+		}
+	}
+	
+	public void print2DArray(int[][] dataArry){
+		int nX = dataArry.length;
+		int nY = dataArry[0].length;
+		for(int i=0;i<nX;i++){
+			for(int j=0;j<nY;j++){
+				System.out.print(dataArry[i][j]);
+			}
+			System.out.println("");
+		}
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -424,6 +448,11 @@ public class Problems {
     	obj.printMatrixAfterKLeftRotations("1 2 3 4", 2, 2, 1);
     	
     	obj.findStarAndSuperStarFromString("4 2 5 7 2 1", 6);
+    	
+    	int[][] dataArry = {{1,4,7},{2,5,8},{3,6,9}};
+    	obj.print2DArray(dataArry);
+    	obj.rotateMatrixBy90Degree(dataArry);
+    	obj.print2DArray(dataArry);
     }
 	
 }
