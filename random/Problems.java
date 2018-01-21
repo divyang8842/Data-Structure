@@ -334,7 +334,29 @@ public class Problems {
 	
 	public void printMatrixAfterKLeftRotations(String strData,int M,int N,int K){
 		String[] strArry =  strData.split(" ");
+		StringBuffer sbData =  new StringBuffer();
 		
+		for(int i=0;i< M;i++){
+			int k = K;
+			for(int j=0;j<N;j++){
+				sbData.append(strArry[i*N + (k%N)]).append(" ");
+				k++;
+			}
+		}
+		/*int i=0;
+		int k = K;
+		for(int j=0;i<M;j++){
+			if(j== N  ){
+				k=K;
+				j=0;
+				i++;
+			}
+			if(i<M){
+				sbData.append(strArry[i*N + (k%N)]).append(" ");
+				k++;
+			}
+		}*/
+		System.out.println(sbData.toString().trim());
 	}
 
     public static void main(String str[]){
@@ -376,6 +398,9 @@ public class Problems {
     	int[] B = {1,2,3,6,5,4,9,8};
     	System.out.println("Max tip is "+obj.MaximumTipCalculator(8, 4, 4, A, B));
     	System.out.println(obj.getKthCharAfterNIteration(11, 6, 4));
+    	
+    	
+    	obj.printMatrixAfterKLeftRotations("1 2 3 4", 2, 2, 1);
     }
 	
 }
