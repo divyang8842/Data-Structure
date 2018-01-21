@@ -435,6 +435,21 @@ public class Problems {
 		
 		return formattedArry;
 	}
+	
+	public int chocolateStationProblem(int[] dataArry,int nLength,int nPrice){
+		int nSum = dataArry[0];
+		int nCurrent = 0;
+		for(int i=1;i<nLength;i++){
+			if(dataArry[i]>(dataArry[i-1]+nCurrent)){
+				nSum+=dataArry[i]-(dataArry[i-1]+nCurrent);
+				nCurrent=0;
+			}else{
+				nCurrent+=dataArry[i-1] - dataArry[i];
+			}
+		}
+		System.out.println(nSum*nPrice);
+		return nSum*nPrice;
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -485,6 +500,10 @@ public class Problems {
     	obj.print2DArray(dataArry);
     	obj.rotateMatrixBy90Degree(dataArry);
     	obj.print2DArray(dataArry);
+    	
+    	
+    	int[] dataChkltPrblm = {10,6,11,4,7,1};
+    	obj.chocolateStationProblem(dataChkltPrblm, 6, 5);
     }
 	
 }
