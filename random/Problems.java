@@ -419,6 +419,22 @@ public class Problems {
 		}		
 		return 0;
 	}
+	
+	public int[] setPositiveElementFollowingNegativeElement(int[] dataArry,int nLength){
+		int nPos = 0;
+		int nNeg = 1;
+		int[] formattedArry = new int[nLength];
+		for(int i=0;i<nLength;i++){
+			if(dataArry[i]>0){
+				formattedArry[nPos+=2] = dataArry[i];
+			}
+			if(dataArry[i]<0){
+				formattedArry[nNeg+=2] = dataArry[i];
+			}
+		}
+		
+		return formattedArry;
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
