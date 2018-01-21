@@ -348,7 +348,7 @@ public class Problems {
 		for(int j=0;i<M;j++){
 			if(j== N  ){
 				k=K;
-				j=0;
+				j=0
 				i++;
 			}
 			if(i<M){
@@ -357,6 +357,27 @@ public class Problems {
 			}
 		}*/
 		System.out.println(sbData.toString().trim());
+	}
+	
+	public void findStarAndSuperStarFromString(String strData,int nLength){
+		String[] arrData = strData.split(" ");
+		int nSupreStar = Integer.parseInt(arrData[0]);
+		int nStarIndex = 0;
+		
+		for(int i=1;i<nLength;i++){
+			if(Integer.parseInt(arrData[i]) >nSupreStar){
+				nSupreStar = Integer.parseInt(arrData[i]); 
+			}
+			if(Integer.parseInt(arrData[nStarIndex]) < Integer.parseInt(arrData[i])){
+				nStarIndex = i;
+			}
+		}
+		for(int i=nStarIndex;i<nLength;i++){
+			System.out.print(arrData[i]+" ");
+		}
+		System.out.println("");
+		System.out.println(nSupreStar);
+		
 	}
 
     public static void main(String str[]){
@@ -401,6 +422,8 @@ public class Problems {
     	
     	
     	obj.printMatrixAfterKLeftRotations("1 2 3 4", 2, 2, 1);
+    	
+    	obj.findStarAndSuperStarFromString("4 2 5 7 2 1", 6);
     }
 	
 }
