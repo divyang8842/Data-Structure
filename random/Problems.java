@@ -3,9 +3,11 @@ package random;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Set;
 
 public class Problems {
 	public void sortRoyalNames(String nameAry[]){
@@ -402,6 +404,20 @@ public class Problems {
 			}
 			System.out.println("");
 		}
+	}
+	
+	public int isStringsHaveCommonSubString(String str1,String str2){
+		Set<Character> data = new HashSet<Character>();
+		int nLength = str1.length();
+		for(int i=0;i<nLength;i++){
+			data.add(str1.charAt(i));
+		}
+		for(int i=0;i<nLength;i++){
+			if(data.contains(str2.charAt(i))){
+				return 1;
+			}
+		}		
+		return 0;
 	}
 
     public static void main(String str[]){
