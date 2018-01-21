@@ -516,7 +516,19 @@ public class Problems {
 	}
 	
 	public int findPeakElemetInIncDecArray(int[] dataArry,int nLength){
-		
+		int nLeft = 0;
+		int nRight = nLength - 1;
+		while(nRight>=nLeft){
+			int nMid = (nRight+nLeft)/2;
+			if(dataArry[nMid]>dataArry[nMid-1] && dataArry[nMid]>dataArry[nMid+1]){
+				return dataArry[nMid];
+			}else if(dataArry[nMid]>dataArry[nMid-1]){
+				nLeft = nMid+1;
+			}else{
+				nRight = nMid-1;
+			}
+		}
+		return -1;
 	} 
 
     public static void main(String str[]){
