@@ -553,23 +553,33 @@ public class Problems {
 			if(cCurrent>='a' && cCurrent<='z'){
 				if(cPrev=='-'){
 					if(nMinus%2==0){
+						charCount[strData.charAt(i)-'a']--;
 						nSum-= (strData.charAt(i)-'a');
 					}else{
+						charCount[strData.charAt(i)-'a']++;
 						nSum+= (strData.charAt(i)-'a');
 					}
 				}else{
 					if(nMinus%2!=0){
+						charCount[strData.charAt(i)-'a']--;
 						nSum-= (strData.charAt(i)-'a');
 					}else{
+						charCount[strData.charAt(i)-'a']++;
 						nSum+= (strData.charAt(i)-'a');
 					}
 				}
 			}
 		}
 		
-		System.out.println(nSum);
+		//System.out.println(nSum);
 		return nSum;
 	} 
+	
+	public String alienDirectoryProblem(String[] dataArry, int k){
+		
+		
+		return null;
+	}
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
