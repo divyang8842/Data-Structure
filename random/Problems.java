@@ -1,5 +1,6 @@
 package random;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -576,6 +577,50 @@ public class Problems {
 	} 
 	
 	public String alienDirectoryProblem(String[] dataArry, int k){
+		int nLength = dataArry.length;
+		ArrayList<Character> setOP = new ArrayList<Character>();
+		HashMap<Character, Character> comparations =  new HashMap<Character, Character>();
+		for(int i=0;i<nLength;i++){
+			String str = dataArry[i];
+			int nStrLength =  str.length();
+			if(!setOP.contains(str.charAt(0))){
+				setOP.add(str.charAt(0));
+			}
+			
+			for(int k1=nStrLength;k1>1;k1--){
+				for(int j=k1-1;j>1;j--){
+					if(!setOP.contains(str.charAt(j))){
+						setOP.add(str.charAt(j));
+						//continue;
+					}
+					
+					if( (comparations.containsKey(str.charAt(j)) && comparations.get(str.charAt(j))==str.charAt(j-1)) || (comparations.containsKey(str.charAt(j-1)) && comparations.get(str.charAt(j-1))==str.charAt(j))){
+						continue;
+					}else{
+						comparations.put(str.charAt(j), str.charAt(j-1));
+					}
+					int nIndexJ = setOP.indexOf(str.charAt(j));
+					
+					int nIndexJ_1 = setOP.indexOf(str.charAt(j-1));
+					if(nIndexJ_1==-1){
+						setOP.add(str.charAt(j-1));
+						nIndexJ_1 =  setOP.size()-1;
+					}
+					if(nIndexJ<nIndexJ_1){
+						setOP.remove(nIndexJ);
+						setOP.add(nIndexJ,str.charAt(j-1));
+						setOP.remove(nIndexJ_1);
+						setOP.add(nIndexJ,str.charAt(j));
+						
+					}
+				}
+			}
+			}
+			
+		
+		for (Character character : setOP) {
+			System.out.print(character);
+		}
 		
 		
 		return null;
@@ -642,8 +687,12 @@ public class Problems {
     	int[] nData = {2,1,4,9,2,3,8,3,4};
     	System.out.println("Length is "+obj.getLengthOFNonOverlappingSubArrays(nData, 9, 4));
     	
+    	String strDict[] = { "baa", "abcd", "abca", "cab", "cad" };
     	
-    	obj.normalizeGivenExpression("-(a+b+c)", 7);
+    	//obj.normalizeGivenExpression("-(a+b+c)", 7);
+    	
+    	String[] strData = {"caa", "aaa", "aab"};
+    	obj.alienDirectoryProblem(strDict, 4);
     	
     }
 	
