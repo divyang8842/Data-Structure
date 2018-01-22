@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 public class Problems {
 	public void sortRoyalNames(String nameAry[]){
@@ -531,6 +532,44 @@ public class Problems {
 		return -1;
 	} 
 
+	
+	public int normalizeGivenExpression(String strData,int nLength,int[] charCount){
+		int nSum = 0;
+		if(nLength<=0){
+			nLength = strData.length();
+		}
+		char cCurrent = ' ';
+		char cPrev = ' ';
+		int nMinus = 0;
+		for(int i=0;i<nLength;i++){
+			cPrev = cCurrent;
+			cCurrent = strData.charAt(i);
+			if(cCurrent=='(' && cPrev=='-'){
+				nMinus++;
+			}if(cCurrent==')' && nMinus>0){
+				nMinus--;
+			}
+			
+			if(cCurrent>='a' && cCurrent<='z'){
+				if(cPrev=='-'){
+					if(nMinus%2==0){
+						nSum-= (strData.charAt(i)-'a');
+					}else{
+						nSum+= (strData.charAt(i)-'a');
+					}
+				}else{
+					if(nMinus%2!=0){
+						nSum-= (strData.charAt(i)-'a');
+					}else{
+						nSum+= (strData.charAt(i)-'a');
+					}
+				}
+			}
+		}
+		
+		System.out.println(nSum);
+		return nSum;
+	} 
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
@@ -592,6 +631,10 @@ public class Problems {
     	
     	int[] nData = {2,1,4,9,2,3,8,3,4};
     	System.out.println("Length is "+obj.getLengthOFNonOverlappingSubArrays(nData, 9, 4));
+    	
+    	
+    	obj.normalizeGivenExpression("-(a+b+c)", 7);
+    	
     }
 	
 }
