@@ -1,5 +1,7 @@
 package singlylinkedlist;
 
+import java.util.Stack;
+
 public class SinglyLinkedList<T> {
 	SinglyLinkedListNode<T> head = null;
 	
@@ -139,7 +141,7 @@ public class SinglyLinkedList<T> {
 		SinglyLinkedListNode<T> middle = head;
 		
 		//finding middle of LL
-		while(next.getNext()!=null){
+		while(next!=null && next.getNext()!=null){
 			next=next.getNext().getNext();
 			middle = middle.getNext();
 		}
@@ -174,18 +176,61 @@ public class SinglyLinkedList<T> {
 		}
 		head = head.getNext();
 	}
+	
+	/*
+	 * Given a singly linked list containing n nodes. Modify the value of first
+	 * half nodes such that 1st node’s new value is equal to the last node’s
+	 * value minus first node’s current value, 2nd node’s new value is equal to
+	 * the second last node’s value minus 2nd node’s current value, likewise for
+	 * first half nodes. If n is odd then the value of the middle node remains
+	 * unchanged.
+	 */
+	public void updateLinkedList(SinglyLinkedListNode<Integer> root){
+		if(root == null){
+			root = ((SinglyLinkedListNode<Integer>)head);
+		}
+		SinglyLinkedListNode<Integer> current =  root;
+		Stack<Integer> stack =  new  Stack<Integer>();
+		SinglyLinkedListNode<Integer> nextPointer =  root;
+		
+		//stack.add(current.getData());
+		while(nextPointer!=null && nextPointer.getNext()!=null){
+			
+			current = current.getNext();
+			//stack.add(current.getData());
+			nextPointer = nextPointer.getNext().getNext();
+		}
+		if(nextPointer !=null){ // odd number of nodes
+			current= current.getNext().getNext();
+		}
+		//stack.add(current.getData());
+		while(current!=null){
+			stack.add(current.getData());
+			current = current.getNext();
+			
+		}
+		
+		current =  root;
+		while(!stack.isEmpty()){
+			current.setData(stack.pop() - current.getData());
+			current = current.getNext();
+		}
+		
+	}
+	
 	public static void main(String str[]){
-		SinglyLinkedList<String> list = new SinglyLinkedList<String>();
-		list.insert("hello");
+		SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+		
+		list.insert(1);
+		list.insert(2);
+		list.insert(3);
+		list.insert(4);
+		list.insert(5);
+		list.insert(6);
+		list.reverseSecondHalfOfLL();
 		list.printLL();
 		System.out.println("------------------");
-		list.insert("1");
-		list.insert("2");
-		list.insert("3");
-		list.insert("4");
-		list.insert("5");
-		list.insert("6");
-		list.reverseSecondHalfOfLL();
+		list.updateLinkedList(null);
 		list.printLL();
 		/*list.delete(1);*/
 		/*list.reverseInPAir();
