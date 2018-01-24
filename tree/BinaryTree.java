@@ -322,6 +322,57 @@ public class BinaryTree<T extends Number> {
 		}
 		return root;
 	}
+	
+	public BinaryTreeNode<Integer> generateBinaryTree(int[] pre, char[] preLN){
+		
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>();
+		generateTreeHelper(root, pre, preLN, 0,pre.length-1);
+		
+		
+		return root;
+	}
+	
+	private int generateTreeHelper(BinaryTreeNode<Integer> root,int[] pre, char[] preLN,int nPos,int nLength){
+		
+		root.setData(pre[nPos]);
+		if(preLN[nPos] == 'N'){
+			int nLeft = ++nPos;
+			if(nLeft<= nLength){
+				BinaryTreeNode<Integer> bLeft = new BinaryTreeNode<Integer>();
+				root.setLeft(bLeft);
+				nPos = generateTreeHelper(bLeft, pre, preLN, nLeft, nLength);
+			}
+			int nRight = ++nPos;
+			if(nRight<= nLength){
+				BinaryTreeNode<Integer> bRight = new BinaryTreeNode<Integer>();
+				root.setRight(bRight);
+				generateTreeHelper(bRight, pre, preLN, nRight, nLength);
+			}
+		}
+		return nPos;
+	}
+	
+	public boolean isIsomorphic(BinaryTreeNode<Integer> root1,BinaryTreeNode<Integer> root2)
+    {
+		if(root1==null && root2 == null){
+			return true;
+		}else if(root1==null || root2 == null){
+			return false;
+		}else if( getNodeData(root1.getLeft()) == getNodeData(root2.getLeft()) && getNodeData(root1.getRight()) == getNodeData(root2.getRight())){
+			return  ( isIsomorphic(root1.getLeft(), root2.getLeft()) && isIsomorphic(root1.getRight(), root2.getRight()) );
+		}else if (getNodeData(root1.getLeft()) == getNodeData(root2.getRight()) && getNodeData(root1.getRight()) == getNodeData(root2.getLeft())){
+			return  ( isIsomorphic(root1.getLeft(), root2.getRight()) && isIsomorphic(root1.getRight(), root2.getLeft()) );
+		}
+		return false;
+	}
+	
+	private Integer getNodeData(BinaryTreeNode<Integer> node){
+		if(node!=null){
+			return node.getData();
+		}else{
+			return Integer.MIN_VALUE;
+		}
+	}
 
 	public static void main(String srgs[]){
 		
@@ -357,5 +408,12 @@ public class BinaryTree<T extends Number> {
 		char[] data = {'I','L','I','L','L'};
 		BinaryTreeNode<Integer> newRoot = bTree.makeSpecialTreeFromString(data, 0);
 		bTree.levelOrderTraversal(newRoot);
+		
+		
+		int pre[] = {10, 30, 20, 5, 15};
+		char preLN[] = {'N', 'N', 'L', 'L', 'L'};
+		BinaryTreeNode<Integer> newTree =  bTree.generateBinaryTree(pre, preLN);
+		bTree.levelOrderTraversal(newTree);
+		
 	}
 }
