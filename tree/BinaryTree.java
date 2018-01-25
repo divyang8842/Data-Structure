@@ -373,6 +373,46 @@ public class BinaryTree<T extends Number> {
 			return Integer.MIN_VALUE;
 		}
 	}
+	
+	
+	public void printLEftMostAndRightMostNodesAtEachLevel(BinaryTreeNode<Integer> root){
+		if(root!=null){
+			BinaryTreeNode<Integer> current = root;
+			//System.out.println(root.getData());
+			Queue<BinaryTreeNode<Integer>> queue = new LinkedList<BinaryTreeNode<Integer>>();
+			queue.offer(root);
+			queue.offer(null);
+			boolean bPrint = false;
+			while(!queue.isEmpty()){
+				
+				if(queue.peek()==null){
+					if(current==null){
+						break;
+					}
+					System.out.println(" "+current.getData());
+					//
+				} if(current==null){
+					bPrint = true;
+				}
+				
+				current =  queue.poll();
+				if(current!=null){
+					if(current.getLeft()!=null)
+					queue.offer(current.getLeft());
+					
+					if(current.getRight()!=null)
+					queue.offer(current.getRight());
+					
+				}else{
+					queue.offer(null);
+				}
+				if(bPrint){
+					System.out.print(current.getData());
+					bPrint = false;
+				}
+			}
+		}
+	}
 
 	public static void main(String srgs[]){
 		
@@ -414,6 +454,8 @@ public class BinaryTree<T extends Number> {
 		char preLN[] = {'N', 'N', 'L', 'L', 'L'};
 		BinaryTreeNode<Integer> newTree =  bTree.generateBinaryTree(pre, preLN);
 		bTree.levelOrderTraversal(newTree);
+		
+		bTree.printLEftMostAndRightMostNodesAtEachLevel(newTree);
 		
 	}
 }

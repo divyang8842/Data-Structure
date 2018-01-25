@@ -511,5 +511,8 @@ public class Problems extends Searches{
 		
 		int[] dataMaxOfMin = {1,2,3,8,5,6,1,1,3,2,5};
 		System.out.println("Max of min in subarrays is"+ obj.getMaxOfMin(dataMaxOfMin, 0, 4));
+		
+		
+		System.out.println();
 	}
 }
