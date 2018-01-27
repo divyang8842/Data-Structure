@@ -641,7 +641,7 @@ public class Problems {
 		int nLength = arry1.length;
 		int[] nReturn = new int[nLength];
 		while(nLength-->0){
-			nReturn[nLength] = findIntCountLessThenOrEqualsInOtherArray(arry2, nLength, arry1[nLength]);
+			nReturn[nLength] = findIntCountLessThenOrEqualsInOtherArray(arry2, arry2.length, arry1[nLength]);
 		}
 		return nReturn;
 	}
@@ -649,10 +649,12 @@ public class Problems {
 		int nLeft = 0;
 		int nRight = nLength-1;
 		int nMid = 0;
-		while(nLeft<nRight){
+		while(nLeft<=nRight){
 			nMid =  (nRight+nLeft)/2;
-			if(arry2[nMid] == k || nMid == nRight){
-				return nMid;
+			if(arry2[nMid] == k && nMid==nRight){
+				return nMid+1;
+			}else if(nLeft-nRight==1){
+				return nRight>k?nLeft:nRight;
 			}
 			if(arry2[nMid]>k){
 				nRight = nMid-1;
@@ -737,6 +739,7 @@ public class Problems {
     	int[] arry2 = {4,48,3,0,1,1,5};
     			
     	int[] op =  obj.findIntCountLessThenOrEqualsInOtherArray(arry1, arry2);
+    	System.out.println();
     	obj.printArry(op);
     }
 	
