@@ -630,6 +630,38 @@ public class Problems {
 		return null;
 	}
 	
+	/*
+	 * Given two unsorted arrays arr1[] and arr2[]. They may contain duplicates.
+	 * For each element in arr1[] count elements less than or equal to it in
+	 * array arr2[].
+	 */
+	
+	public int[] findIntCountLessThenOrEqualsInOtherArray(int[] arry1, int[] arry2){
+		Arrays.sort(arry2);
+		int nLength = arry1.length;
+		int[] nReturn = new int[nLength];
+		while(nLength-->0){
+			nReturn[nLength] = findIntCountLessThenOrEqualsInOtherArray(arry2, nLength, arry1[nLength]);
+		}
+		return nReturn;
+	}
+	private int findIntCountLessThenOrEqualsInOtherArray(int[] arry2,int nLength, int k){
+		int nLeft = 0;
+		int nRight = nLength-1;
+		int nMid = 0;
+		while(nLeft<nRight){
+			nMid =  (nRight+nLeft)/2;
+			if(arry2[nMid] == k || nMid == nRight){
+				return nMid;
+			}
+			if(arry2[nMid]>k){
+				nRight = nMid-1;
+			}else if(arry2[nMid]<=k){
+				nLeft = nMid+1;
+			}
+		}
+		return nMid;
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -700,6 +732,12 @@ public class Problems {
     	String[] strData = {"caa", "aaa", "aab"};
     	obj.alienDirectoryProblem(strDict, 4);
     	
+    	
+    	int[] arry1 = {4,8,7,5,1};
+    	int[] arry2 = {4,48,3,0,1,1,5};
+    			
+    	int[] op =  obj.findIntCountLessThenOrEqualsInOtherArray(arry1, arry2);
+    	obj.printArry(op);
     }
 	
 }
