@@ -698,6 +698,26 @@ public class Problems {
 		}
 		return nCount;
 	}
+	
+	
+	public void sortStack(Stack<Integer> stack){
+		if(stack.isEmpty()) 
+			return;
+		int nData = stack.pop();
+		sortStack(stack);
+		insertInStack(stack, nData);
+		
+	}
+	private void insertInStack(Stack<Integer> stack,int nData){
+		if(stack.isEmpty() || stack.peek()>nData){
+			stack.push(nData);
+		}else{
+			int data =  stack.pop();
+			insertInStack(stack, nData);
+			stack.push(data);
+		}
+		
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
