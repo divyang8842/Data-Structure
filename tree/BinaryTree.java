@@ -413,6 +413,25 @@ public class BinaryTree<T extends Number> {
 			}
 		}
 	}
+	
+	int nCount = 0;
+	public void printNumberOfPathHavingKAsNodeSum(BinaryTreeNode<Integer> head,int k,int sum){
+		if(head!=null){
+			if(sum+head.getData()==k){
+				nCount++;
+			}else{
+				if(head.getLeft()!=null){
+					printNumberOfPathHavingKAsNodeSum(head.getLeft(), k, sum);
+					printNumberOfPathHavingKAsNodeSum(head.getLeft(), k, 0);
+				}
+				
+				if(head.getRight()!=null){
+					printNumberOfPathHavingKAsNodeSum(head.getRight(), k, sum);
+					printNumberOfPathHavingKAsNodeSum(head.getRight(), k, 0);
+				}
+			}
+		}
+	}
 
 	public static void main(String srgs[]){
 		
