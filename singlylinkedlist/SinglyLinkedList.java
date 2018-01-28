@@ -5,6 +5,10 @@ import java.util.Stack;
 public class SinglyLinkedList<T> {
 	SinglyLinkedListNode<T> head = null;
 	
+	public SinglyLinkedListNode<T> getHead(){
+		return head;
+	}
+	
 	public SinglyLinkedListNode<T> insert(T data){
 		if(head==null){
 			head = new SinglyLinkedListNode<T>();
@@ -218,6 +222,61 @@ public class SinglyLinkedList<T> {
 		
 	}
 	
+	public SinglyLinkedListNode<Integer> sortSinglyLinkedList(SinglyLinkedListNode<Integer> head){
+		if(head==null || head.getNext()==null){
+			return head;
+		}
+		SinglyLinkedListNode<Integer> middle = getMiddleOfLL(head);
+		SinglyLinkedListNode<Integer> middleNext = middle.getNext();
+		middle.setNext(null);
+		SinglyLinkedListNode<Integer> left =  sortSinglyLinkedList(head);
+		SinglyLinkedListNode<Integer> right = sortSinglyLinkedList(middleNext);
+		
+		SinglyLinkedListNode<Integer> sortedList = mergeList(left, right);
+		
+		
+		return sortedList;
+	}
+	
+	public SinglyLinkedListNode<Integer> mergeList(SinglyLinkedListNode<Integer> left, SinglyLinkedListNode<Integer> right){
+		SinglyLinkedListNode<Integer> result = null;
+		if(left==null){
+			return right;
+		}else if(right==null){
+			return left;
+		}
+		
+		if(left.getData()>right.getData()){
+			result = left;
+			result.setNext(mergeList(result.getNext(), right));
+		}else{
+			result = right;
+			result.setNext(mergeList(left, result.getNext()));
+		}
+		
+		return result;
+	}
+	
+	public SinglyLinkedListNode<Integer> getMiddleOfLL(SinglyLinkedListNode<Integer> head){
+		
+		if(head==null){
+			return null;
+		}
+		SinglyLinkedListNode<Integer> fastPtr = head.getNext();
+		SinglyLinkedListNode<Integer> slowPtr = head;
+		
+		while(fastPtr!=null){
+			fastPtr = fastPtr.getNext();
+			if(fastPtr != null){
+				fastPtr = fastPtr.getNext();
+				slowPtr = slowPtr.getNext();
+			}
+			
+		}
+		
+		return slowPtr;
+	}
+	
 	public static void main(String str[]){
 		SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
 		
@@ -232,6 +291,15 @@ public class SinglyLinkedList<T> {
 		System.out.println("------------------");
 		list.updateLinkedList(null);
 		list.printLL();
+		System.out.println("------------------");
+		list.updateLinkedList(null);
+		list.printLL();
+		System.out.println("------------------");
+		SinglyLinkedListNode<Integer> head =  list.getHead();
+		head = list.sortSinglyLinkedList(head);
+		list.head = head;
+		list.printLL();
+		
 		/*list.delete(1);*/
 		/*list.reverseInPAir();
 		list.printLL();
