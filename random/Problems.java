@@ -719,6 +719,37 @@ public class Problems {
 		
 	}
 
+	/*
+	 * Given 3 characters a, b, c. Find the number of strings of length n that
+	 * can be formed from these 3 characters. Given that : we can use ‘a’ as
+	 * many times as we want, ‘b’ maximum once, and ‘c’ maximum twice.
+	 */
+	public int giveNumberOfUniueStringPossible(int nStringLength){
+		ArrayList<String> strList = new ArrayList<String>();
+		giveNumberOfUniueStringPossible(nStringLength, 0, 0, 0, ' ', "",strList);
+		return strList.size();
+	}
+	private void giveNumberOfUniueStringPossible(int nStringLength,int nCurrentLength,int nB,int nC,char current,String str,List strList){
+		if(nStringLength==nCurrentLength){
+			if((nB>1 && current=='b')|| (nC>2 && current=='c')){
+				return;
+			}else{
+				System.out.println(str+current);
+				strList.add(str+current);
+				return;
+			}
+			
+		}else if((nB>1 && current=='b')|| (nC>2 && current=='c')){
+			return;
+		}else if(current!=' '){
+			str+=current;
+		}
+		
+		giveNumberOfUniueStringPossible(nStringLength, nCurrentLength+1, nB, nC, 'a',str,strList) ;
+		giveNumberOfUniueStringPossible(nStringLength, nCurrentLength+1, nB+1, nC, 'b',str,strList);
+		giveNumberOfUniueStringPossible(nStringLength, nCurrentLength+1, nB, nC+1, 'c',str,strList);
+	}
+	
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
@@ -797,6 +828,8 @@ public class Problems {
     	obj.printArry(op);
     	
     	System.out.println("Number of operations needs to make string anagrams are "+obj.findAnagramFrom2StringByRemoviungCharFromString("asgadhbfgvhads", "sjdhgvjdshvbvd"));
+    	
+    	System.out.println("Number of string possible are "+obj.giveNumberOfUniueStringPossible(5));
     }
 	
 }
