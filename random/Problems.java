@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -664,6 +665,39 @@ public class Problems {
 		}
 		return nMid;
 	}
+	
+	public int findAnagramFrom2StringByRemoviungCharFromString(String str1, String str2){
+		HashMap<Character, Integer> map1 =  new HashMap<Character, Integer>();
+		
+		int nLength1 =  str1.length();
+		int nLength2 =  str2.length();
+		
+		while(nLength1-->0){
+			if(map1.containsKey(str1.charAt(nLength1))){
+				map1.put(str1.charAt(nLength1), map1.get(str1.charAt(nLength1))+1);
+			}else{
+				map1.put(str1.charAt(nLength1), 1);
+			}
+		}
+		
+		while(nLength2-->0){
+			if(map1.containsKey(str2.charAt(nLength2))){
+				if(map1.get(str2.charAt(nLength2))>1 || map1.get(str2.charAt(nLength2))<0){
+					map1.put(str2.charAt(nLength2), map1.get(str2.charAt(nLength2))-1);
+				}else{
+					map1.remove(str2.charAt(nLength2));
+				}
+			}else{
+				map1.put(str2.charAt(nLength2), -1);
+			}
+		}
+		int nCount = 0;
+		Set<Character> data = map1.keySet();
+		for (Character character : data) {
+			nCount+=Math.abs(map1.get(character)) ;
+		}
+		return nCount;
+	}
 
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -741,6 +775,8 @@ public class Problems {
     	int[] op =  obj.findIntCountLessThenOrEqualsInOtherArray(arry1, arry2);
     	System.out.println();
     	obj.printArry(op);
+    	
+    	System.out.println("Number of operations needs to make string anagrams are "+obj.findAnagramFrom2StringByRemoviungCharFromString("asgadhbfgvhads", "sjdhgvjdshvbvd"));
     }
 	
 }
