@@ -432,6 +432,18 @@ public class BinaryTree<T extends Number> {
 			}
 		}
 	}
+	
+	public void printAllPAthFromRoot(BinaryTreeNode<T> head,String strPath){
+		if(head==null ){
+			System.out.println(strPath+="NULL");
+		}else if(head.getLeft()==null && head.getRight()==null){
+			System.out.println(strPath+=head.getData());
+		}else{
+			strPath+=head.getData()+"->";
+			printAllPAthFromRoot(head.getLeft(), strPath);
+			printAllPAthFromRoot(head.getRight(), strPath);
+		}
+	}
 
 	public static void main(String srgs[]){
 		
@@ -475,6 +487,7 @@ public class BinaryTree<T extends Number> {
 		bTree.levelOrderTraversal(newTree);
 		
 		bTree.printLEftMostAndRightMostNodesAtEachLevel(newTree);
+		bTree.printAllPAthFromRoot(newTree, "");
 		
 	}
 }
