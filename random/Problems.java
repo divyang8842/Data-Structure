@@ -807,6 +807,27 @@ public class Problems {
 		return 0;
 	}
 	
+	public int findIndexOfFirst1InSorted01Array(int[] n01Arry){
+		int nLeft = 0;
+		int nRight = n01Arry.length-1;
+		while(nRight>=nLeft){
+			int nMid =  (nRight+nLeft)/2;
+			
+			if(n01Arry[nMid] == 1 && (nMid == nLeft || n01Arry[nMid-1]==0)){
+				return nMid;
+			}
+			
+			if(n01Arry[nMid]<1){
+				nLeft = nMid+1;
+			}else{
+				nRight = nMid;
+			}
+		}
+		return -1;
+	}
+	
+	
+	
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
@@ -887,6 +908,11 @@ public class Problems {
     	System.out.println("Number of operations needs to make string anagrams are "+obj.findAnagramFrom2StringByRemoviungCharFromString("asgadhbfgvhads", "sjdhgvjdshvbvd"));
     	System.out.println("Number of string possible are "+obj.giveNumberOfUniueStringPossible(5));
     	System.out.println("Number of steps knight needs are "+obj.getMinStepsReqForKnightToReach(4, 5, 1, 1,6));
+    	
+    	int[] n01Sorted = {0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    	System.out.println("First index of 1 in sorted 01 array is "+obj.findIndexOfFirst1InSorted01Array(n01Sorted));
+    	
+    	
     }
 	
 }
