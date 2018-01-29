@@ -859,6 +859,51 @@ public class Problems {
 		return "YES";
 	}
 	
+	/*
+	 * Given an array Arr[] of N distinct integers. Write a program to find the
+	 * count of groups of 2 or 3 integers that can be formed by choosing
+	 * integers from the given array such that sum of integers in each of the
+	 * group is divisible by three.
+	 */
+	
+	public int getGroupFor3Count(int[] nArry,int nLength,int nDivisible){
+		
+		int[] data = new int[nDivisible];
+		for(int i=0;i<nLength;i++){
+			 data[nArry[i]%nDivisible]++;
+		}
+		printArry(data);
+		int nCount = data[0]>0?data[0]*(data[0]-1)/2:0;
+		if(data[0]==nLength){
+			nCount+= data[0]*(data[0]-1)*(data[0]-2)/6;
+		}else{
+			System.out.println(nCount);
+			nCount+=getPairToDoSum(data, nDivisible, nDivisible);
+			for(int i=0;i<nDivisible;i++){
+				nCount+= data[i]* getPairToDoSum(data, nDivisible, nDivisible-i);
+			}
+		}
+		
+		return nCount;
+	}
+	
+	public int getPairToDoSum(int[] data,int nLength,int k){
+		int nLeft = 0;
+		int nRight = nLength-1;
+		int nCount = (data[0]>0&& k==nLength)?data[0]*data[0]-1/2:0;
+		while(nRight>nLeft){
+			if(nLeft+nRight==k){
+				nCount+= Math.min(data[nLeft], data[nRight]);
+				nLeft++;
+				nRight--;
+			}else if(nLeft+nRight>k){
+				nRight--;
+			}else{
+				nLeft++;
+			}
+		}
+		return nCount;
+	}
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
@@ -945,6 +990,9 @@ public class Problems {
     	
     	int[] nHouses = {5,5,10,100,10,5};
     	System.out.println("The max amount a thief can loot is "+obj.getMAxAmoutAThiefCanLoot(nHouses, 6, 0));
+    	
+    	int[] nCountArry = {3,6,9,12};
+    	System.out.println("2 or 3 pair of digits in array to make sum is "+obj.getGroupFor3Count(nCountArry, 4	, 3));
     }
 	
 }
