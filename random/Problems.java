@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -1001,6 +1002,35 @@ public class Problems {
 		printArry(nOutPut);
 		return nOutPut;
 	}
+
+	/*
+	 * Given an array of words, print the count of all anagrams together in
+	 * sorted order (increasing order of counts).
+	 * For example, if the given
+	 * array is {“cat”, “dog”, “tac”, “god”, “act”}, then grouped anagrams are
+	 * “(dog, god) (cat, tac, act)”. So the output will be 2 3.
+	 */
+	
+	public void printPairedAnagramsTogether(String[] arry,int nLength){
+		HashMap<String, String> anagramPair = new HashMap<String, String>();
+		for(int i=0;i<nLength;i++){
+			char[] data = arry[i].toCharArray();
+			Arrays.sort(data);
+			String str = String.valueOf(data);
+			if(anagramPair.containsKey(str)){
+				anagramPair.put(str, anagramPair.get(str)+","+arry[i]);
+			}else{
+				anagramPair.put(str, arry[i]);
+			}
+		}
+		
+		Iterator itr = anagramPair.entrySet().iterator();
+		while(itr.hasNext()){
+			Map.Entry<String, String>  pair = (Map.Entry<String, String>)itr.next();
+			System.out.println(pair.getValue());
+		}
+		
+	}
 	
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -1102,6 +1132,8 @@ public class Problems {
     	
     	
     	System.out.println("Above is the array for less values in b : "+obj.countNumberOfElementsLessThenElementInA(nA, 7, nB, 7));
+    	String[] anagramArry = {"act","cat","tac","god","dog"};
+    	obj.printPairedAnagramsTogether(anagramArry, 5);
     }
 	
 }
