@@ -904,6 +904,65 @@ public class Problems {
 		}
 		return nCount;
 	}
+	
+	/*
+	 * Given a matrix of dimension r*c where each cell in the matrix can have
+	 * values 0, 1 or 2 which has the following meaning:
+	 * 
+	 * 0: Empty cell 
+	 * 1: Cells have fresh oranges 
+	 * 2: Cells have rotten oranges
+	 * 
+	 * So we have to determine what is the minimum time required so that all the
+	 * oranges become rotten. A rotten orange at index [i,j] can rot other fresh
+	 * orange at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (up, down, left and
+	 * right) in unit time. If it is impossible to rot every orange then simply
+	 * return -1.
+	 */
+	private boolean  isValidOrangeEntry(int nXs,int nYs, int nX, int nY){
+		return (nXs>=0 && nXs<nX && nYs>=0 && nYs<nY );
+	}
+	public int rottenOrangesTime(int[][] orangesArry,int nX,int nY){
+		Queue<Cell> queue= new LinkedList<Cell>();
+		for(int i=0;i<nX;i++)
+			for(int j=0;j<nY;j++)
+				if(orangesArry[i][j]==2)
+					queue.add(new Cell(i, j));
+		
+		
+		queue.add(null);
+		int[] nXs = {-1,1,0,0};
+		int[] nYs = {0,0,-1,1};
+		int nTime  = 0;
+		while(!queue.isEmpty()){
+			Cell currentOrange = queue.poll();
+			if(currentOrange==null){
+				if(!queue.isEmpty()){
+					queue.add(null);
+					nTime++;
+				}
+				
+				continue;
+			}
+			for(int i=0;i<4;i++){
+				if(isValidOrangeEntry(currentOrange.nX+nXs[i],currentOrange.nY+nYs[i], nX, nY) && orangesArry[currentOrange.nX+nXs[i]][currentOrange.nY+nYs[i]]==1){
+					orangesArry[currentOrange.nX+nXs[i]][currentOrange.nY+nYs[i]]=2;
+					queue.add(new Cell(currentOrange.nX+nXs[i],currentOrange.nY+nYs[i]));
+				}
+			}
+		}
+		
+		print2DArray(orangesArry);
+		
+		for(int i=0;i<nX;i++)
+			for(int j=0;j<nY;j++)
+				if(orangesArry[i][j]==1)
+					return -1;
+		
+		return nTime;
+		
+	}
+	
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
@@ -993,6 +1052,10 @@ public class Problems {
     	
     	int[] nCountArry = {3,6,9,12};
     	System.out.println("2 or 3 pair of digits in array to make sum is "+obj.getGroupFor3Count(nCountArry, 4	, 3));
+    	
+    	
+    	int[][] arryOranges = {{2,1,0,2,1},{1,0,1,2,1},{1,0,0,2,1}};
+    	System.out.println("Time to rotten all oranges is "+obj.rottenOrangesTime(arryOranges, 3, 5));
     }
 	
 }
