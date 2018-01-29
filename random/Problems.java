@@ -962,6 +962,45 @@ public class Problems {
 		return nTime;
 		
 	}
+
+	/*
+	 * Given two unsorted arrays A, B. They can contain duplicates. For each
+	 * element in A , count elements less than or equal to it in array B .
+	 */
+	
+	public int[] countNumberOfElementsLessThenElementInA(int[] nA, int nLengthA, int[] nB, int nLengthB){
+		int nMax = Integer.MIN_VALUE;
+		for(int i=0;i<nLengthA;i++){
+			if(nMax<nA[i]){
+				nMax = nA[i];
+			}
+		}
+		
+		HashMap<Integer, Integer> mapCountB =  new HashMap<Integer, Integer>();
+		for(int i=0;i<nLengthB;i++){
+			if(mapCountB.containsKey(nB[i])){
+				mapCountB.put(nB[i],mapCountB.get(nB[i])+1);
+			}else{
+				mapCountB.put(nB[i],1);
+			}
+		}
+		int[] nOP = new int[nMax];
+		int nSum = 0;
+		for(int i=0;i<nMax;i++){
+			nOP[i] = nSum;
+			if(mapCountB.containsKey(i)){
+				nSum+=mapCountB.get(i);
+			}
+		}
+		
+		int[] nOutPut =  new int[nLengthA];
+		
+		for(int i=0;i<nLengthA;i++){
+			nOutPut[i] = nOP[nA[i]-1];
+		}
+		printArry(nOutPut);
+		return nOutPut;
+	}
 	
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -1056,6 +1095,13 @@ public class Problems {
     	
     	int[][] arryOranges = {{2,1,0,2,1},{1,0,1,2,1},{1,0,0,2,1}};
     	System.out.println("Time to rotten all oranges is "+obj.rottenOrangesTime(arryOranges, 3, 5));
+    	
+    	
+    	int[] nA = {95,39,49,20,67,26,63};
+    	int[] nB = {77,96,81,65,60,36,55};
+    	
+    	
+    	System.out.println("Above is the array for less values in b : "+obj.countNumberOfElementsLessThenElementInA(nA, 7, nB, 7));
     }
 	
 }
