@@ -826,7 +826,27 @@ public class Problems {
 		return -1;
 	}
 	
-	
+	/*
+	 * Stickler is a thief and wants to loot money from a society of n houses
+	 * placed in a line. He is a weird person and follows a rule while looting
+	 * the houses and according to the rule he will never loot two consecutive
+	 * houses. At the same time, he wants to maximize the amount he loots. The
+	 * thief knows which house has what amount of money but is unable to find
+	 * the maximum amount he can end up with. He asks for your help to find the
+	 * maximum money he can get if he strictly follows the rule. Each house has
+	 * a[i] amount of money present in it.
+	 */
+	public int getMAxAmoutAThiefCanLoot(int[] nHouses,int nLength,int nCurrent){
+		 int nSum = 0;
+		if(nCurrent<0 || nCurrent>=nLength){
+			return 0;
+		} 	
+		nSum+=nHouses[nCurrent];
+		int nSingle = getMAxAmoutAThiefCanLoot(nHouses, nLength, nCurrent+2);
+		int nDouble = getMAxAmoutAThiefCanLoot(nHouses, nLength, nCurrent+3);
+		nSum+= Math.max(nSingle, nDouble);
+		return nSum;
+	}
 	
     public static void main(String str[]){
     	Problems obj = new Problems();
@@ -912,7 +932,8 @@ public class Problems {
     	int[] n01Sorted = {0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
     	System.out.println("First index of 1 in sorted 01 array is "+obj.findIndexOfFirst1InSorted01Array(n01Sorted));
     	
-    	
+    	int[] nHouses = {5,5,10,100,10,5};
+    	System.out.println("The max amount a thief can loot is "+obj.getMAxAmoutAThiefCanLoot(nHouses, 6, 0));
     }
 	
 }
