@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 import java.util.StringTokenizer;
@@ -750,6 +751,62 @@ public class Problems {
 		giveNumberOfUniueStringPossible(nStringLength, nCurrentLength+1, nB, nC+1, 'c',str,strList);
 	}
 	
+	private class Cell{
+		Cell(int nX,int nY){
+			this.nX = nX;
+			this.nY = nY;
+		}
+		Cell(int nX,int nY,int nDis){
+			this.nX = nX;
+			this.nY = nY;
+			this.nDis = nDis;
+		}
+		int nX;
+		int nY;
+		int nDis;
+		
+	}
+	
+	private boolean isInRange(int nX,int nY,int nN){
+		if(nX>0 && nX<nN && nY>0 && nY<nN){
+			return true;
+		}
+		return false;
+	}
+	public int getMinStepsReqForKnightToReach(int nStartX,int nStartY,int nDestX,int nDestY,int nN){
+		Cell cellStart =  new Cell(nStartX, nStartY);
+		Queue<Cell> queue = new LinkedList<Cell>();
+		queue.add(cellStart);
+		boolean[][] visited =  new boolean[nN][nN];
+		int[] nX = {-2,-1,1,2,-2,-1,1,2};
+		int[] nY = {-1,-2,2,1,1,2,-2,-1};
+		
+		for(int i=0;i<nN;i++)
+			for(int j=0;j<nN;j++)
+				visited[i][j] = false;
+		
+		visited[nStartX][nStartY] =  true;
+		while(!queue.isEmpty()){
+			Cell current = queue.poll();
+			
+			if(current.nX==nDestX && current.nY==nDestY){
+				return current.nDis;
+			}
+			for(int i=0;i<8;i++){
+				
+				int nCX = current.nX + nX[i];
+				int nCY = current.nY + nY[i];
+				if(isInRange(nCX, nCY, nN) && !visited[nCX][nCY]){
+					queue.add(new Cell(nCX, nCY, current.nDis+1));
+					visited[nCX][nCY] =  true;
+				}
+			}
+			
+		}
+		
+		return 0;
+	}
+	
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
@@ -828,8 +885,8 @@ public class Problems {
     	obj.printArry(op);
     	
     	System.out.println("Number of operations needs to make string anagrams are "+obj.findAnagramFrom2StringByRemoviungCharFromString("asgadhbfgvhads", "sjdhgvjdshvbvd"));
-    	
     	System.out.println("Number of string possible are "+obj.giveNumberOfUniueStringPossible(5));
+    	System.out.println("Number of steps knight needs are "+obj.getMinStepsReqForKnightToReach(4, 5, 1, 1,6));
     }
 	
 }
