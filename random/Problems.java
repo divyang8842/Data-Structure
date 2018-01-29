@@ -848,6 +848,17 @@ public class Problems {
 		return nSum;
 	}
 	
+	public String isAllBitsAreSetForNumber(int nNumber){
+		String strBinary = Integer.toBinaryString(nNumber);
+		int nLength =  strBinary.length();
+		while(nLength-->0){
+			if(strBinary.charAt(nLength)!='1'){
+				return "NO";
+			}
+		}
+		return "YES";
+	}
+	
     public static void main(String str[]){
     	Problems obj = new Problems();
     	/*String names[]={"Richard V","Henry VI","Edward II","Richard XXV","Henry IX","Edward LII"};
