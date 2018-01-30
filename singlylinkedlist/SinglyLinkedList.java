@@ -10,16 +10,19 @@ public class SinglyLinkedList<T> {
 	}
 	
 	public SinglyLinkedListNode<T> insert(T data){
+		SinglyLinkedListNode<T> newNode = new SinglyLinkedListNode<T>();
+		newNode.setData(data);
+		return insert(newNode);
+	}
+	
+	public SinglyLinkedListNode<T> insert(SinglyLinkedListNode<T> newNode){
 		if(head==null){
-			head = new SinglyLinkedListNode<T>();
-			head.setData(data);
+			head = newNode;
 		}else{
 			SinglyLinkedListNode<T> currentNode = head;
 			while(currentNode.getNext()!=null){
 				currentNode = currentNode.getNext();
 			}
-			SinglyLinkedListNode<T> newNode = new SinglyLinkedListNode<T>();
-			newNode.setData(data);
 			currentNode.setNext(newNode);
 		}
 		return head;
@@ -59,7 +62,13 @@ public class SinglyLinkedList<T> {
 		return head==null;
 	}
 	
+	
+	
 	public int getLength(){
+		return getLength(head);
+	}
+	
+	public int getLength(SinglyLinkedListNode<T> head){
 		int nLength = 0;
 
 		SinglyLinkedListNode<T> currentNode = head;
@@ -277,6 +286,34 @@ public class SinglyLinkedList<T> {
 		return slowPtr;
 	}
 	
+	public SinglyLinkedListNode<T> findIntersectionOf2LinkedList(SinglyLinkedListNode<T> head1, SinglyLinkedListNode<T> head2){
+		int nLength1 =  getLength(head1);
+		int nLength2 =  getLength(head2);
+		if(nLength1>nLength2){
+			while(nLength1-nLength2>0){
+				head1 = head1.getNext();
+				nLength1--;
+			}
+		}else if(nLength1<nLength2){
+			while(nLength2-nLength1>0){
+				head2 = head2.getNext();
+				nLength2--;
+			}
+		}
+		
+		while(head1!=null){
+			if(head1.getData() == head2.getData()){
+				System.out.println("intersection is "+head1.getData());
+				return head1;
+			}else{
+				head1 = head1.getNext();
+				head2 = head2.getNext();
+			}
+		}
+		System.out.println("intersection not found. ");
+		return null;
+	}
+	
 	public static void main(String str[]){
 		SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
 		
@@ -286,6 +323,29 @@ public class SinglyLinkedList<T> {
 		list.insert(4);
 		list.insert(5);
 		list.insert(6);
+		
+		SinglyLinkedList<Integer> list1 = new SinglyLinkedList<Integer>();
+		
+		list1.insert(7);
+		list1.insert(8);
+		list1.insert(9);
+		list1.insert(10);
+		list1.insert(11);
+		list1.insert(12);
+		list1.insert(13);
+		list1.insert(list.head);
+		
+		SinglyLinkedList<Integer> list2 = new SinglyLinkedList<Integer>();
+		
+		list2.insert(15);
+		list2.insert(16);
+		list2.insert(17);
+		list2.insert(18);
+		
+		list2.insert(list.head);
+		
+		list.findIntersectionOf2LinkedList(list1.head, list2.head);
+		
 		list.reverseSecondHalfOfLL();
 		list.printLL();
 		System.out.println("------------------");
@@ -299,6 +359,8 @@ public class SinglyLinkedList<T> {
 		head = list.sortSinglyLinkedList(head);
 		list.head = head;
 		list.printLL();
+		
+		
 		
 		/*list.delete(1);*/
 		/*list.reverseInPAir();
