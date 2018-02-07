@@ -1,5 +1,4 @@
 package leetcode;
-import java.util.HashMap;
 public class MaxLengthPalindrome {
 
 	    public String longestPalindrome(String s) {
