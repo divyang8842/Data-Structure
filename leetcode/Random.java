@@ -91,9 +91,9 @@ public class Random {
 		//iterate through the map and chec for every area
 		for (int i = 0; i < nRows; i++){
 			for (int j = 0; j < nCols; j++) {
-				if (copyArr[i][j] >= 0) {
-					getOtherAreaOfCountry(A, copyArr, i, j, nRows, nCols);
-					nCountryCount++;
+				if (copyArr[i][j] >= 0) {//only allow to check other country area id current area is not part of any existing country
+					getOtherAreaOfCountry(A, copyArr, i, j, nRows, nCols); // recursive call to new function to mark down all the area of country
+					nCountryCount++;// increasing country count
 				}
 			}
 		}
