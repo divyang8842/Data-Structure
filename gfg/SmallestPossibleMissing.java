@@ -38,6 +38,7 @@ public class SmallestPossibleMissing {
 
 			System.out.println(nReturn);
 		}
+		sc.close();
 	}
 
 }

@@ -37,5 +37,6 @@ public class SumOfLevelInTree {
 	        }
 	        System.out.println(nSum);
 	    }
+	    sc.close();
 	}
 }

@@ -29,6 +29,7 @@ class GFG {
 		    }
 
 		}
+		sc.close();
 	}
     public static void getMinDistance(int nSourceRow,int nSourceCol,int nDestRow,int nDestCol,int[][] data,int nRows,int nCols,int nDist){
 		if(nSourceRow< 0 || nSourceRow == nRows || nSourceCol == nCols || nSourceCol < 0){

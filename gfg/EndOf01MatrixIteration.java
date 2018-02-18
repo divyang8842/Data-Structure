@@ -56,5 +56,6 @@ public class EndOf01MatrixIteration {
 			}
 			System.out.println(i+" "+j);
 		}
+		sc.close();
 	}
 }

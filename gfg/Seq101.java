@@ -37,5 +37,6 @@ public class Seq101 {
 		    }
 		    System.out.println(nCount);
 		}
+		sc.close();
 	}
 }
