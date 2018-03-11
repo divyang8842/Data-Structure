@@ -1,6 +1,7 @@
 package companies;
 
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import tree.BinaryTree;
@@ -112,7 +113,7 @@ public class Oa_Practice {
 			
 			// For very element, the previous smaller elements are useless so
             // remove them from Qi
-			while(!queueWindow.isEmpty() && nInputArry[nCurrentIndex]> queueWindow.peekLast()) {
+			while(!queueWindow.isEmpty() && nInputArry[nCurrentIndex]>= nInputArry[queueWindow.peekLast()]) {
 				queueWindow.removeLast();
 			}
 			//adding current index in queue
@@ -132,7 +133,7 @@ public class Oa_Practice {
 			}
 			
 			//remove all elements which are smaller then the element being added
-			while(!queueWindow.isEmpty() && nInputArry[nCurrentIndex]> queueWindow.peekLast()) {
+			while(!queueWindow.isEmpty() && nInputArry[nCurrentIndex]>= nInputArry[queueWindow.peekLast()]) {
 				queueWindow.removeLast();
 			}
 			
@@ -142,6 +143,47 @@ public class Oa_Practice {
 		// Print the maximum element of last window
         System.out.print(nInputArry[queueWindow.peek()]);
 		
+	}
+	
+	
+	//##End
+	
+	
+	//##Find the largest subarray with k sum
+	public int findLargestSubArray(int[] nInputArry,int nK) {
+		
+		// Variable with output
+		int nMaxLength = 0; 
+		// length of input array
+		int nLength =  nInputArry.length; 
+		// Variable to get track of urrent Sum
+		int nSum = 0;
+		//Map to keep track of Sum on each level
+		HashMap<Integer, Integer> mapSum =  new  HashMap<>();
+		
+		for(int i=0;i<nLength;i++) {
+			//keep adding element in sum
+			nSum+= nInputArry[i];
+			
+			// if we found the sum then change the length
+			if(nSum == nK) { 
+				nMaxLength = i+1;
+			}else {
+				//check if in past we get any sum which is nK less then current sum
+				// which means the interval between those index generates sum nK
+				Integer nPreviousIndex = mapSum.get(nSum - nK);
+				//if we found the previous sum
+				if(nPreviousIndex!=null) {
+					//change the max length is necessary
+					nMaxLength = Math.max(nMaxLength, i - nPreviousIndex);
+				}
+				if(!mapSum.containsKey(nSum)){
+					// only put entry for the sum for 1st occurrence
+					mapSum.put(nSum, i);
+				}
+			}
+		}
+		return nMaxLength;
 	}
 	
 	
@@ -169,5 +211,13 @@ public class Oa_Practice {
 		
 		bTree.levelOrderTraversal(obj.deserialization(strSerialized));
 		
+		
+		 int arr[]={12, 1, 78, 90, 57, 89, 56};
+	     int k=3;
+	     obj.printMaxInWindow(arr, k);
+	     System.out.println();
+	     
+	     int arr1[] = {15, -2, 2, -8, 1, 7, 10, 23};
+	     System.out.println(obj.findLargestSubArray(arr1, 0));
 	}
 }
