@@ -1,5 +1,8 @@
 package companies;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 import tree.BinaryTree;
 import tree.BinaryTreeNode;
 
@@ -87,7 +90,62 @@ public class Oa_Practice {
 	
 	//##End
 	
+	//##given an array and window size, pass the window all over the array and print the max element in the window in O(n)  
+	public void printMaxInWindow(int[] nInputArry, int nWindowSize) {
+		
+		//length of input window
+		int nLength =  nInputArry.length;
+		
+		//Variable used to track current index element
+		int nCurrentIndex = 0;
+		
+		//checking for windows side is less the total length
+		if(nWindowSize>nLength) {
+			nWindowSize = nLength;
+		}
+		
+		// a queue to store current window
+		Deque<Integer> queueWindow =  new LinkedList<Integer>();
+		
+		//adding first window in queue
+		while(nCurrentIndex<nWindowSize) {
+			
+			// For very element, the previous smaller elements are useless so
+            // remove them from Qi
+			while(!queueWindow.isEmpty() && nInputArry[nCurrentIndex]> queueWindow.peekLast()) {
+				queueWindow.removeLast();
+			}
+			//adding current index in queue
+			queueWindow.addLast(nCurrentIndex++);
+		}
+		
+		
+		//processing remaining elements
+		while(nCurrentIndex<nLength) {
+			
+			//printing max for previous window
+			System.out.println(nInputArry[queueWindow.peek()]);
+			
+			//removing elements out of the window
+			while(!queueWindow.isEmpty() && queueWindow.peek() <= nCurrentIndex - nWindowSize) {
+				queueWindow.remove();
+			}
+			
+			//remove all elements which are smaller then the element being added
+			while(!queueWindow.isEmpty() && nInputArry[nCurrentIndex]> queueWindow.peekLast()) {
+				queueWindow.removeLast();
+			}
+			
+			queueWindow.addLast(nCurrentIndex++);
+		}
+		
+		// Print the maximum element of last window
+        System.out.print(nInputArry[queueWindow.peek()]);
+		
+	}
 	
+	
+	//##End
 	
 	public static void main(String str[]) {
 		BinaryTree<Integer> bTree = new BinaryTree<Integer>();
