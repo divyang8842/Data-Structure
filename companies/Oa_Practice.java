@@ -1,6 +1,7 @@
 package companies;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -207,7 +208,53 @@ public class Oa_Practice {
 	
 	//End
 	
+	//find the next higher number from given number digits
+	public int findNextGreaterElement(int nInput) {
+		String strInput =  String.valueOf(nInput);
+		int nLength = strInput.length();
+		
+		//starting from right, find the 1st element which is smaller then element in the right of it
+		int i=nLength-1;
+		for(;i>0;i--) {
+			if(strInput.charAt(i) > strInput.charAt(i-1)) {
+				break;
+			}
+		}
+		
+		
+		//if no such element is available then all digits are in descending order and we can not have greater value then itself
+		if(i==0) {
+			return -1;
+		}
+		
+		
+		//find the smallest element which is greater then element at i
+		char cSwappingNumber = strInput.charAt(i-1);
+		int nCurrentIndex = i;
+		for(int j=i;j<nLength;j++) {
+			if(strInput.charAt(j) > cSwappingNumber && strInput.charAt(j) < strInput.charAt(nCurrentIndex)) {
+				nCurrentIndex = j;
+			}
+		}
+		
+		strInput = swapAndSort(strInput,nCurrentIndex,i-1,nLength);
+		
+		return Integer.parseInt(strInput);
+	}
+	private String swapAndSort(String strInput,int nCurrentIndex,int nSwapIndex,int nLength) {
+		char[] data = strInput.toCharArray();
+		char temp =  data[nCurrentIndex];
+		data[nCurrentIndex] = data[nSwapIndex];
+		data[nSwapIndex] = temp;
+		Arrays.sort(data,nSwapIndex+1,nLength);
+		StringBuilder sbOP =  new StringBuilder();
+		for(int i=0;i<nLength;i++) {
+			sbOP.append(data[i]);
+		}
+		return sbOP.toString();
+	}
 	
+	//End
 	
 	//##Find the largest subarray with k sum
 	public int findLargestSubArray(int[] nInputArry,int nK) {
@@ -247,6 +294,70 @@ public class Oa_Practice {
 	}
 	//##End
 	
+	//##fibonacci series 4 ways
+	public int fibonacci1(int nNumber) {
+		HashMap<Integer, Integer> mapFibo =  new HashMap<>();
+		return fibonacci1_helper(nNumber, mapFibo);
+	}
+	
+	private int fibonacci1_helper(int nNumber,HashMap<Integer, Integer> mapFibo) {
+		
+		if(mapFibo.containsKey(nNumber)) {
+			return mapFibo.get(nNumber);
+		}
+		if(nNumber==2) {
+			return 1;
+		}else if(nNumber==1 || nNumber == 0) {
+			return nNumber;
+		}
+		int nK = (nNumber%2 == 0)?nNumber/2 : (nNumber+1)/2;
+		int nFibo = 0;
+		if(nNumber%2==1) {
+			nFibo = fibonacci1_helper(nK,mapFibo) * fibonacci1_helper(nK,mapFibo) +  fibonacci1_helper(nK-1,mapFibo) * fibonacci1_helper(nK-1,mapFibo);
+		}else {
+			nFibo = fibonacci1_helper(nK,mapFibo)*(2*fibonacci1_helper(nK-1,mapFibo)+fibonacci1_helper(nK,mapFibo));
+		}
+		mapFibo.put(nNumber, nFibo);
+		return nFibo;
+	}
+	
+	public int fibonacci2(int nNumber) {
+		int[] nFiboArr =  new int[nNumber];
+		for(int i=0;i<nNumber;i++) {
+			nFiboArr[i] = -1;
+		}
+		return fibonacci2_helper(nNumber-1, nFiboArr);
+	}
+	
+	private int fibonacci2_helper(int nNumber,int[] nFiboArr) {
+		
+		if(nFiboArr[nNumber]>=0) {
+			return nFiboArr[nNumber];
+		}
+		if(nNumber == 2) {
+			return 1;
+		}else if(nNumber==1 || nNumber==0) {
+			return nNumber;
+		}else {
+			nFiboArr[nNumber] = fibonacci2_helper(nNumber-1, nFiboArr) + fibonacci2_helper(nNumber-2, nFiboArr);
+			return nFiboArr[nNumber];
+		}
+	}
+	
+	public int fibonacci3(int nNumber) {
+		int nNum1 = 0;
+		int nNum2 = 1;
+		for(int i=2;i<nNumber;i++) {
+			nNum2 = nNum1+nNum2;
+			nNum1 = nNum2 - nNum1;
+		}
+		return nNum2;
+		
+	}
+	
+	
+	//##End
+	
 	public static void main(String str[]) {
 		BinaryTree<Integer> bTree = new BinaryTree<Integer>();
 		BinaryTreeNode<Integer> root = bTree.insert(null, 1);
@@ -277,5 +388,8 @@ public class Oa_Practice {
 	     
 	     int arr1[] = {15, -2, 2, -8, 1, 7, 10, 23};
 	     System.out.println(obj.findLargestSubArray(arr1, 0));
+	     
+	     
+	     System.out.println("fibo is "+obj.fibonacci2(5));
 	}
 }
