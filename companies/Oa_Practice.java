@@ -2,9 +2,12 @@ package companies;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import tree.BinaryTree;
 import tree.BinaryTreeNode;
@@ -354,7 +357,79 @@ public class Oa_Practice {
 		return nNum2;
 		
 	}
+	//##End
 	
+	
+	//## Print anagrams together in word list
+	
+	//remains : Got Concept
+	public void printAnagramsTogether(String[] strWordsArr, int nSize) {
+		
+		//String[] strDupArr = strWordsArr.clone();
+		HashMap<String, String> mapAnagrams =  new HashMap<>();
+		for(int i=0;i<nSize;i++) {
+			char[] cCharArr =  strWordsArr[i].toCharArray();
+			Arrays.sort(cCharArr);
+			String strKey = new String(cCharArr);
+			if(mapAnagrams.containsKey(strKey)) {
+				mapAnagrams.put(strKey,mapAnagrams.get(strKey)+","+strWordsArr[i]);
+			}else{
+				mapAnagrams.put(strKey, strWordsArr[i]);
+			}
+		}
+		for(String str :  mapAnagrams.values()) {
+			System.out.println(str);
+		}
+	}
+	//## End
+
+	//##Find Longest Common Substring
+	public int findLongestCommonSubstringLength(String strInput1,String strInput2) {
+		int nLongestLength = 0;
+		int nLength1 = strInput1.length();
+		int nLength2 = strInput2.length();
+		
+		int[][] nCartesianArr =  new int[nLength1+1][nLength2+1];
+		for(int i=0;i<nLength1;i++) {
+			for(int j=0;j<nLength2;j++) {
+				if(i==0 || j==0) {
+					nCartesianArr[i][j] = 0;
+				}else if(strInput1.charAt(i-1) == strInput2.charAt(j)) {
+					nCartesianArr[i][j] = nCartesianArr[i-1][j-1] + 1;
+					nLongestLength = Math.max(nLongestLength, nCartesianArr[i][j]);
+				}
+			}
+		}
+		
+		return nLongestLength;
+	}
+	
+	//##End
+	
+	//##Find Key in Sorted and Rotated Array
+	public int findKey(int[] nInputArr, int nLeft, int nRight, int nKey) {
+		int nMid = (nLeft+nRight)/2;
+		
+		if(nInputArr[nMid] ==  nKey) {
+			return nMid;
+		}
+		//check if left side is sorted
+		if(nInputArr[nLeft] < nInputArr[nMid]) {
+			
+			if(nKey>= nInputArr[nLeft] && nKey< nInputArr[nMid]) {
+				return findKey(nInputArr, nLeft, nMid-1, nKey);
+			}else {
+				return findKey(nInputArr, nMid+1, nRight, nKey);
+			}
+		}
+		
+		//if left is not sorted, that means right is sorted
+		if(nKey<=nInputArr[nRight] && nKey > nInputArr[nMid]) {
+			return findKey(nInputArr, nMid+1, nRight, nKey);
+		}else {
+			return findKey(nInputArr, nLeft, nMid-1, nKey);
+		}
+	};
 	
 	//##End
 	
@@ -391,5 +466,14 @@ public class Oa_Practice {
 	     
 	     
 	     System.out.println("fibo is "+obj.fibonacci2(5));
+	     
+	     int[] dataArr = {5, 6, 7, 8, 9, 10, 1, 2, 3};
+	     System.out.println(obj.findKey(dataArr, 0, dataArr.length-1, 3));
+	     
+	     
+	     String X = "OldSite:GeeksforGeeks.org";
+	     String Y = "NewSite:GeeksQuiz.com";
+	     
+	     System.out.println(obj.findLongestCommonSubstringLength(X, Y));
 	}
 }
