@@ -194,10 +194,14 @@ public class Oa_Practice {
 	//## End
 	
 	//##SubArray with Max Sum
-	public int findMaxSubArrySum(int[] nInotArr) {
+	public int findMaxSubArrySum(int[] nInptArr) {
 		int nMaxSum = 0;
-
-		
+		int nCurrentSum = 0;
+		int nLength =  nInptArr.length;
+		for(int i=0;i<nLength;i++) {
+			nCurrentSum =  Math.max(nCurrentSum+nInptArr[i], nInptArr[i]);
+			nMaxSum = Math.max(nCurrentSum, nMaxSum);
+		}
 		return nMaxSum;
 	}
 	
