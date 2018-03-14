@@ -1,5 +1,6 @@
 package companies;
 
+import java.math.BigInteger;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -147,6 +148,61 @@ public class Oa_Practice {
 	
 	
 	//##End
+	
+	
+	//##find an subarray with size of n in an array, calculate the products of elements in the subarray, return the subarray whose products has most 0s  
+	public int[] findSubArray(int[] nInputArry, int nWindowSize) {
+		int[] nReturnArr = new int[nWindowSize];
+		int nStart = 0;
+		int nEnd =  nWindowSize;
+		int nMaxZero = 0;
+		int nLength = nInputArry.length;
+		
+		if(nLength<nWindowSize) {
+			nWindowSize = nLength;
+		}
+		//putting first window in consideration
+		int nCurrentIndex = 0;
+		BigInteger nMulti =  new BigInteger("0");
+		while(nCurrentIndex<nWindowSize) {
+			nMulti = nMulti.multiply(new BigInteger(String.valueOf(nInputArry[nCurrentIndex])));
+			nCurrentIndex++;
+		}
+		
+		String strMulti =  nMulti.toString();
+		int nCurrntZero = 0;
+		while(nCurrentIndex<nLength) {
+			nCurrntZero = strMulti.length() - strMulti.replace("0", "").length();
+			if(nCurrntZero > nMaxZero) {
+				nMaxZero = nCurrntZero;
+				nEnd = nCurrentIndex-1;
+				nStart =  nCurrentIndex-nWindowSize;
+			}
+			nMulti = nMulti.divide(new BigInteger(String.valueOf(nInputArry[nCurrentIndex-nWindowSize])));
+			nMulti = nMulti.multiply(new BigInteger(String.valueOf(nInputArry[nCurrentIndex])));
+			strMulti =  nMulti.toString();
+			nCurrentIndex++;
+		}
+		
+		while(nStart<=nEnd) {
+			nReturnArr[nStart] = nInputArry[nStart];
+			nStart++;
+		}
+		
+		return nReturnArr;
+	}
+	//## End
+	
+	//##SubArray with Max Sum
+	public int findMaxSubArrySum(int[] nInotArr) {
+		int nMaxSum = 0;
+
+		
+		return nMaxSum;
+	}
+	
+	//End
+	
 	
 	
 	//##Find the largest subarray with k sum
