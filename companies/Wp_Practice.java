@@ -95,7 +95,7 @@ public class Wp_Practice {
 				i++;
 				
 				//e can not be last character of number
-				if(i==nLength) {
+				if(i==nLength-1) {
 					return false;
 				}
 				
@@ -113,6 +113,24 @@ public class Wp_Practice {
 	}
 	
 	//## End
+	
+	
+	//##Check is number is power number or not
+	public boolean isPowerNumber(int nInput) {
+		double nSqrRoot =  Math.sqrt(nInput);
+		for(int i=2;i<nSqrRoot;i++) {
+			int nCurrent = i;
+			while(nCurrent<=nInput) {
+				nCurrent*=i;
+				if(nCurrent == nInput) {
+					return true;
+				}
+			}
+			
+		}
+		return false;
+	}
+	//##End
 	
 	
 	public static void main(String[] str) {
