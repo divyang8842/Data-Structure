@@ -1,6 +1,7 @@
 package companies;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -225,6 +226,68 @@ public class Wp_Practice {
 	
 	
 	//## End
+	
+	//##fibonacci series 3 ways
+	public int fibonacci1(int nNumber) {
+		HashMap<Integer, Integer> mapFibo =  new HashMap<>();
+		return fibonacci1_helper(nNumber, mapFibo);
+	}
+	
+	private int fibonacci1_helper(int nNumber,HashMap<Integer, Integer> mapFibo) {
+		
+		if(mapFibo.containsKey(nNumber)) {
+			return mapFibo.get(nNumber);
+		}
+		if(nNumber==2) {
+			return 1;
+		}else if(nNumber==1 || nNumber == 0) {
+			return nNumber;
+		}
+		int nK = (nNumber%2 == 0)?nNumber/2 : (nNumber+1)/2;
+		int nFibo = 0;
+		if(nNumber%2==1) {
+			nFibo = fibonacci1_helper(nK,mapFibo) * fibonacci1_helper(nK,mapFibo) +  fibonacci1_helper(nK-1,mapFibo) * fibonacci1_helper(nK-1,mapFibo);
+		}else {
+			nFibo = fibonacci1_helper(nK,mapFibo)*(2*fibonacci1_helper(nK-1,mapFibo)+fibonacci1_helper(nK,mapFibo));
+		}
+		mapFibo.put(nNumber, nFibo);
+		return nFibo;
+	}
+	
+	public int fibonacci2(int nNumber) {
+		int[] nFiboArr =  new int[nNumber];
+		for(int i=0;i<nNumber;i++) {
+			nFiboArr[i] = -1;
+		}
+		return fibonacci2_helper(nNumber-1, nFiboArr);
+	}
+	
+	private int fibonacci2_helper(int nNumber,int[] nFiboArr) {
+		
+		if(nFiboArr[nNumber]>=0) {
+			return nFiboArr[nNumber];
+		}
+		if(nNumber == 2) {
+			return 1;
+		}else if(nNumber==1 || nNumber==0) {
+			return nNumber;
+		}else {
+			nFiboArr[nNumber] = fibonacci2_helper(nNumber-1, nFiboArr) + fibonacci2_helper(nNumber-2, nFiboArr);
+			return nFiboArr[nNumber];
+		}
+	}
+	
+	public int fibonacci3(int nNumber) {
+		int nNum1 = 0;
+		int nNum2 = 1;
+		for(int i=2;i<nNumber;i++) {
+			nNum2 = nNum1+nNum2;
+			nNum1 = nNum2 - nNum1;
+		}
+		return nNum2;
+		
+	}
+	//##End
 	
 	public static void main(String[] str) {
 		
