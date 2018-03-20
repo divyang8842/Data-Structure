@@ -2,19 +2,16 @@ package companies;
 
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import tree.BinaryTree;
 import tree.BinaryTreeNode;
 
 public class Oa_Practice {
 	
-	//#### Binary tree serialization and deserialization 
+	//## Binary tree serialization and deserialization
 	public String serialization(BinaryTreeNode<Integer> root) {
 		StringBuffer sbReturn  =  new StringBuffer();
 		if(root!=null) {
@@ -28,12 +25,10 @@ public class Oa_Practice {
 					sbReturn.append(serialization(root.getRight()));
 				}
 			}
-			
 			sbReturn.append(")");
 		}
 		return sbReturn.toString();
 	}
-	
 	
 	public BinaryTreeNode<Integer> deserialization(String strInput){
 		BinaryTreeNode<Integer> root = null;
@@ -67,11 +62,10 @@ public class Oa_Practice {
 	}
 	//#### End
 	
-	
 	//##Write a code to check whether the given tree is Binary Search Tree or not.  
 	public boolean isBinaryTree(BinaryTreeNode<Integer> root) {
 		if(root!=null) {
-			isBinaryTree_Helper(root, Integer.MAX_VALUE, Integer.MIN_VALUE);
+			return isBinaryTree_Helper(root, Integer.MAX_VALUE, Integer.MIN_VALUE);
 		}
 		return true;
 	}
@@ -89,16 +83,8 @@ public class Oa_Practice {
 	}
 	//## End
 	
-	
-	
-	
-	
-	
-	//##End
-	
 	//##given an array and window size, pass the window all over the array and print the max element in the window in O(n)  
 	public void printMaxInWindow(int[] nInputArry, int nWindowSize) {
-		
 		//length of input window
 		int nLength =  nInputArry.length;
 		
@@ -125,7 +111,6 @@ public class Oa_Practice {
 			queueWindow.addLast(nCurrentIndex++);
 		}
 		
-		
 		//processing remaining elements
 		while(nCurrentIndex<nLength) {
 			
@@ -147,12 +132,8 @@ public class Oa_Practice {
 		
 		// Print the maximum element of last window
         System.out.print(nInputArry[queueWindow.peek()]);
-		
 	}
-	
-	
 	//##End
-	
 	
 	//##find an subarray with size of n in an array, calculate the products of elements in the subarray, return the subarray whose products has most 0s  
 	public int[] findSubArray(int[] nInputArry, int nWindowSize) {
@@ -187,12 +168,10 @@ public class Oa_Practice {
 			strMulti =  nMulti.toString();
 			nCurrentIndex++;
 		}
-		
 		while(nStart<=nEnd) {
 			nReturnArr[nStart] = nInputArry[nStart];
 			nStart++;
 		}
-		
 		return nReturnArr;
 	}
 	//## End
@@ -208,14 +187,13 @@ public class Oa_Practice {
 		}
 		return nMaxSum;
 	}
-	
 	//End
 	
 	//find the next higher number from given number digits
 	public int findNextGreaterElement(int nInput) {
 		String strInput =  String.valueOf(nInput);
 		int nLength = strInput.length();
-		
+
 		//starting from right, find the 1st element which is smaller then element in the right of it
 		int i=nLength-1;
 		for(;i>0;i--) {
@@ -223,13 +201,11 @@ public class Oa_Practice {
 				break;
 			}
 		}
-		
-		
+
 		//if no such element is available then all digits are in descending order and we can not have greater value then itself
 		if(i==0) {
 			return -1;
 		}
-		
 		
 		//find the smallest element which is greater then element at i
 		char cSwappingNumber = strInput.charAt(i-1);
@@ -239,11 +215,10 @@ public class Oa_Practice {
 				nCurrentIndex = j;
 			}
 		}
-		
 		strInput = swapAndSort(strInput,nCurrentIndex,i-1,nLength);
-		
 		return Integer.parseInt(strInput);
 	}
+	
 	private String swapAndSort(String strInput,int nCurrentIndex,int nSwapIndex,int nLength) {
 		char[] data = strInput.toCharArray();
 		char temp =  data[nCurrentIndex];
@@ -256,12 +231,10 @@ public class Oa_Practice {
 		}
 		return sbOP.toString();
 	}
-	
 	//End
 	
 	//##Find the largest subarray with k sum
 	public int findLargestSubArray(int[] nInputArry,int nK) {
-		
 		// Variable with output
 		int nMaxLength = 0; 
 		// length of input array
@@ -270,7 +243,7 @@ public class Oa_Practice {
 		int nSum = 0;
 		//Map to keep track of Sum on each level
 		HashMap<Integer, Integer> mapSum =  new  HashMap<>();
-		
+
 		for(int i=0;i<nLength;i++) {
 			//keep adding element in sum
 			nSum+= nInputArry[i];
@@ -297,7 +270,7 @@ public class Oa_Practice {
 	}
 	//##End
 	
-	//##fibonacci series 4 ways
+	//##fibonacci series 3 ways
 	public int fibonacci1(int nNumber) {
 		HashMap<Integer, Integer> mapFibo =  new HashMap<>();
 		return fibonacci1_helper(nNumber, mapFibo);
@@ -359,12 +332,9 @@ public class Oa_Practice {
 	}
 	//##End
 	
-	
 	//## Print anagrams together in word list
-	
 	//remains : Got Concept
 	public void printAnagramsTogether(String[] strWordsArr, int nSize) {
-		
 		//String[] strDupArr = strWordsArr.clone();
 		HashMap<String, String> mapAnagrams =  new HashMap<>();
 		for(int i=0;i<nSize;i++) {
@@ -389,21 +359,19 @@ public class Oa_Practice {
 		int nLength1 = strInput1.length();
 		int nLength2 = strInput2.length();
 		
-		int[][] nCartesianArr =  new int[nLength1+1][nLength2+1];
+		int[][] nCartesianArr =  new int[nLength1][nLength2];
 		for(int i=0;i<nLength1;i++) {
 			for(int j=0;j<nLength2;j++) {
 				if(i==0 || j==0) {
 					nCartesianArr[i][j] = 0;
-				}else if(strInput1.charAt(i-1) == strInput2.charAt(j)) {
+				}else if(strInput1.charAt(i-1) == strInput2.charAt(j-1)) {
 					nCartesianArr[i][j] = nCartesianArr[i-1][j-1] + 1;
 					nLongestLength = Math.max(nLongestLength, nCartesianArr[i][j]);
 				}
 			}
 		}
-		
 		return nLongestLength;
 	}
-	
 	//##End
 	
 	//##Find Key in Sorted and Rotated Array
@@ -422,7 +390,7 @@ public class Oa_Practice {
 				return findKey(nInputArr, nMid+1, nRight, nKey);
 			}
 		}
-		
+
 		//if left is not sorted, that means right is sorted
 		if(nKey<=nInputArr[nRight] && nKey > nInputArr[nMid]) {
 			return findKey(nInputArr, nMid+1, nRight, nKey);
@@ -430,10 +398,37 @@ public class Oa_Practice {
 			return findKey(nInputArr, nLeft, nMid-1, nKey);
 		}
 	};
-	
 	//##End
 	
+	//###6 ZigZag Conversion
+	public String convert(String s, int nRows) {
+	    //converting string to char aray
+		char[] cInputArr = s.toCharArray();
+		//getting length of input
+	    int nLength = cInputArr.length;
+	    
+	    //declaring string buffer for each row
+	    StringBuffer[] sb = new StringBuffer[nRows];
+	    //initializing string buffers
+	    for (int i = 0; i < sb.length; i++) sb[i] = new StringBuffer();
+	    
+	    
+	    
+	    int i = 0;
+	    while (i < nLength) {
+	        for (int idx = 0; idx < nRows && i < nLength; idx++) // vertically down
+	            sb[idx].append(cInputArr[i++]);
+	        for (int idx = nRows-2; idx >= 1 && i < nLength; idx--) // obliquely up
+	            sb[idx].append(cInputArr[i++]);
+	    }
+	    for (int idx = 1; idx < sb.length; idx++)
+	        sb[0].append(sb[idx]);
+	    return sb[0].toString();
+	}
+	//## End
+	
 	public static void main(String str[]) {
+
 		BinaryTree<Integer> bTree = new BinaryTree<Integer>();
 		BinaryTreeNode<Integer> root = bTree.insert(null, 1);
 		bTree.insert(root, 2);
@@ -444,36 +439,30 @@ public class Oa_Practice {
 		bTree.insert(root, 7);
 		bTree.insert(root, 8);
 		bTree.insert(root, 9);
-	
-		
+
 		Oa_Practice obj = new Oa_Practice();
 		String strSerialized =  obj.serialization(root);
 		System.out.println("Tree before ");
 		bTree.levelOrderTraversal(root);
-
 		System.out.println(strSerialized);
-		
 		bTree.levelOrderTraversal(obj.deserialization(strSerialized));
-		
-		
-		 int arr[]={12, 1, 78, 90, 57, 89, 56};
-	     int k=3;
-	     obj.printMaxInWindow(arr, k);
-	     System.out.println();
+
+		int arr[]={12, 1, 78, 90, 57, 89, 56};
+	    int k=3;
+	    obj.printMaxInWindow(arr, k);
+	    System.out.println();
 	     
-	     int arr1[] = {15, -2, 2, -8, 1, 7, 10, 23};
-	     System.out.println(obj.findLargestSubArray(arr1, 0));
+	    int arr1[] = {15, -2, 2, -8, 1, 7, 10, 23};
+	    System.out.println(obj.findLargestSubArray(arr1, 0));
 	     
+	    System.out.println("fibo is "+obj.fibonacci2(5));
 	     
-	     System.out.println("fibo is "+obj.fibonacci2(5));
+	    int[] dataArr = {5, 6, 7, 8, 9, 10, 1, 2, 3};
+	    System.out.println(obj.findKey(dataArr, 0, dataArr.length-1, 3));
 	     
-	     int[] dataArr = {5, 6, 7, 8, 9, 10, 1, 2, 3};
-	     System.out.println(obj.findKey(dataArr, 0, dataArr.length-1, 3));
+	    String X = "OldSite:GeeksforGeeks.org";
+	    String Y = "NewSite:GeeksQuiz.com";
 	     
-	     
-	     String X = "OldSite:GeeksforGeeks.org";
-	     String Y = "NewSite:GeeksQuiz.com";
-	     
-	     System.out.println(obj.findLongestCommonSubstringLength(X, Y));
+	    System.out.println(obj.findLongestCommonSubstringLength(X, Y));
 	}
 }
