@@ -36,6 +36,5 @@ public class Ps_Practice {
 		}else {
 			return 0;
 		}
-		
 	}
 }
