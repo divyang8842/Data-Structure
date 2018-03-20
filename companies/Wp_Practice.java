@@ -137,7 +137,7 @@ public class Wp_Practice {
 	}
 	//##End
 	
-	//## Work LEdder Problem
+	//## Word LEdder Problem
 	
 	class WordNode{
 	    String word;
