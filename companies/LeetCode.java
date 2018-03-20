@@ -269,7 +269,39 @@ public class LeetCode {
 	    
 	    
 	    //##Find all combinations of numbers in a given array that add up to a given number.
+	    public static void printAllCombinationOfElementAddUpInN(int[] nArr,int nNumber) {
+	    	int nLength =  nArr.length;
+	    	int[] nResultArr =  new int[nLength];
+	    	printAllCombinationOfElementAddUpInN_Utils(nArr, nNumber, nNumber, nResultArr, nLength,0);
+	    }
 	    
+	    public static void printAllCombinationOfElementAddUpInN_Utils(int[] nArr,int nNumber,int nReducedNumber,int[] nResult,int nLength,int nIndex) {
+	    	if(nReducedNumber < 0) {
+	    		return;
+	    	}
+	    	
+	    	if(nReducedNumber == 0) {
+	    		System.out.println(Arrays.toString(nResult));
+	    		return;
+	    	}
+	    	
+	    	for(int i=nIndex;i<nLength;i++) {
+	    		nResult[nIndex] = nArr[i];
+	    		if(nReducedNumber-nArr[i] < 0) {
+	    			nResult[nIndex] = 0;
+	    			break;
+	    		}
+	    		printAllCombinationOfElementAddUpInN_Utils(nArr, nNumber, nReducedNumber-nArr[i] , nResult, nLength, i+1);
+	    		
+	    	}
+	    }
+	    
+	    //##
+	    
+	    //## print all substring for a string
+	    
+	    
+	    //##End
 	    
 	    
 	    
@@ -283,7 +315,10 @@ public class LeetCode {
 	    	
 	    	 */
 	    	
-	    	printAllCombinationOfNumber(5);
+	    	//printAllCombinationOfNumber(5);
+	    	int[] nArr = {1,1,2,3,4,5,6,7};
+	    	printAllCombinationOfElementAddUpInN(nArr, 5);
+	    	
 	    	
 	    }
 }
