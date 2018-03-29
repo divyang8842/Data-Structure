@@ -1,6 +1,8 @@
 package companies;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class LeetCode {
 	    
@@ -376,6 +378,62 @@ public class LeetCode {
 	        return newNum.intValue();      
 	    }
 	    //##
+	    
+	    
+	    //##Unique tupples with Sum 0 in array
+	        public List<List<Integer>> threeSum(int[] nums) {
+	            List<List<Integer>> lstOP =  new ArrayList<List<Integer>>();
+	            int nLength =  nums.length;
+	            Arrays.sort(nums);
+	           // System.out.println(Arrays.toString(nums));
+	            for(int i=0;i<nLength;i++){
+	                if (i > 0 && nums[i] == nums[i-1]) {
+	                    continue;
+	                }
+	                int nLow = i+1;
+	                int nHi = nLength-1;
+	                while(nHi>nLow){
+	                    int nCurrent = nums[i] + nums[nHi] + nums[nLow];
+	                       
+	                     if(nCurrent == 0){
+	                         List<Integer> currentLst =  new ArrayList<Integer>();
+	                         currentLst.add(nums[i]);
+	                         currentLst.add(nums[nLow]);
+	                         currentLst.add(nums[nHi]);
+	                         lstOP.add(currentLst);
+	                        
+	                         nHi--;  
+	                         while(nHi>nLow && nums[nHi]==nums[nHi+1]){
+	                              nHi--;  
+	                         }
+	                         
+	                         
+	                         nLow++;
+	                         while(nHi>nLow && nums[nLow]== nums[nLow-1]){
+	                             nLow++;
+	                         }
+	                        
+	                        // System.out.println("-->nHi : "+nHi);
+	                        //System.out.println("-->nLow : "+nLow);
+	                    
+	                     }else if(nCurrent>0){
+	                         nHi--;
+	                         while(nHi>nLow && nums[nHi]==nums[nHi+1]){
+	                              nHi--;  
+	                         }
+	                     }else{
+	                         nLow++;
+	                         while(nHi>nLow && nums[nLow]== nums[nLow-1]){
+	                             nLow++;
+	                         }
+	                     } 
+	                   // System.out.println("After nHi : "+nHi);
+	                    //System.out.println("After  nLow : "+nLow);
+	                }
+	            }
+	            return lstOP;
+	        }
+	        //##End
 	    
 	    
 	    
