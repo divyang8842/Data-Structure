@@ -512,6 +512,48 @@ public class LeetCode {
 	            return nOP+target;
 	        }
 	        //##End
+	        
+	        
+	        //##Remove Nth Node From End of List
+	        //Given a linked list, remove the nth node from the end of list and return its head.
+	        
+	        /**
+	         * Definition for singly-linked list.
+	         **/
+	          public class ListNode {
+	              int val;
+	              ListNode next;
+	              ListNode(int x) { val = x; }
+	          }
+	         
+	            public ListNode removeNthFromEnd(ListNode head, int n) {
+	                if(head == null){
+	                    return null;
+	                }
+	                
+	                int nIndex = 0;
+	                ListNode current =  head;
+	                ListNode endNode =  head;
+	                while(endNode!=null){
+	                    endNode = endNode.next;
+	                    if(nIndex>n){
+	                        current =  current.next;                
+	                    }
+	                    nIndex++;
+	                }
+
+	                if(nIndex == n){
+	                    return head.next;
+	                }else if(nIndex > n){
+	                    ListNode temp =  current.next;
+	                    current.next =  temp.next;
+	                    temp.next = null;
+	                    temp = null;
+	                    
+	                }
+	                return head;
+	            }
+	        //##End
 	    
 	    public static void main(String str[]) {
 	    	/*if(isMatch("a", "ab*a") ) {
