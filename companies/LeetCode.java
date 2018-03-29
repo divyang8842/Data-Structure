@@ -460,7 +460,28 @@ public class LeetCode {
 	            return nMaxArea;
 	        }
 	        //##End
-	    
+	        
+	        
+	        //##Write a function to find the longest common prefix string amongst an array of strings.
+	        public String longestCommonPrefix(String[] strs) {
+	            if(strs==null){
+	                return "";
+	            }
+	            
+	            int nLength =  strs.length;
+	            if(nLength==0){
+	                return "";
+	            }
+	            String strPre =  strs[0];
+	            for(int i=1;i<nLength;i++){
+	                while(!strs[i].startsWith(strPre)){
+	                    strPre =  strPre.substring(0,strPre.length()-1);
+	                }
+	            }
+	            
+	            return strPre;
+	        }
+	    //##End
 	    
 	    
 	    public static void main(String str[]) {
