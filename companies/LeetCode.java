@@ -586,6 +586,30 @@ public class LeetCode {
 		return nNewLength;
 	}
 	// ##End
+	
+	//##Generate Parentheses
+	public List<String> generateParenthesis(int n) {
+        List<String> lstOP =  new ArrayList<String>();
+        generateParenthesis_util(lstOP,"",0,0,n); 
+        return lstOP;
+    }
+    
+    private void generateParenthesis_util(List<String> lstOP,String strOP,int nOpen, int nClose,int nMax){
+        if(strOP.length() == nMax*2){
+            lstOP.add(strOP);
+            return;
+        }
+        
+        if(nOpen < nMax){
+            generateParenthesis_util(lstOP,strOP+"(",nOpen+1,nClose,nMax);
+        }
+        
+        if(nClose<nOpen){
+            generateParenthesis_util(lstOP,strOP+")",nOpen,nClose+1,nMax);
+        }
+        
+    }
+    //##End
 
 	public static void main(String str[]) {
 		/*
