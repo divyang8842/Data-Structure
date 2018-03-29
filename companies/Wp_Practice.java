@@ -83,6 +83,11 @@ public class Wp_Practice {
 		boolean isDot = false;
 		//boolean to check e
 		boolean isE = false;
+		//if first char is .
+		if(strNumber.charAt(0)!='.') {
+			isDot = true;
+		}
+		
 		for(int i=1;i<nLength;i++) {
 			if(strNumber.charAt(i)=='.') {
 				//valid number can not have dot for 2 times
@@ -97,15 +102,13 @@ public class Wp_Practice {
 				if(isE) {
 					return false;
 				}
-				i++;
-				
 				//e can not be last character of number
 				if(i==nLength-1) {
 					return false;
 				}
 				
 				//number after 
-				if(strNumber.charAt(i)!='+' && strNumber.charAt(i)!='-' && !Character.isDigit(strNumber.charAt(i))) {
+				if(strNumber.charAt(i+1)!='+' && strNumber.charAt(i+1)!='-' && !Character.isDigit(strNumber.charAt(i+1))) {
 					return false;
 				}
 				isE = true;
@@ -120,18 +123,22 @@ public class Wp_Practice {
 	//## End
 	
 	
-	//##Check is number is power number or not
+	//##Check if number is power number or not
 	public boolean isPowerNumber(int nInput) {
 		double nSqrRoot =  Math.sqrt(nInput);
-		for(int i=2;i<nSqrRoot;i++) {
-			int nCurrent = i;
-			while(nCurrent<=nInput) {
-				nCurrent*=i;
-				if(nCurrent == nInput) {
-					return true;
-				}
-			}
-			
+		
+		//check if its power of 2 or not
+		if((nInput & (nInput - 1)) == 0) {
+			return true;
+		}
+		//Time Comp : n * (log log nInput)
+		for(int i=3;i<nSqrRoot;i++) {
+			//Time Comp : log log nInput
+			int nLog = (int) (Math.log(nInput) / Math.log(i));
+			double dLog = Math.log(nInput) / Math.log(i);
+			 if(dLog == nLog) {
+				 return true;
+			 }
 		}
 		return false;
 	}

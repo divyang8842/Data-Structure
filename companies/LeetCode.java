@@ -299,10 +299,83 @@ public class LeetCode {
 	    //##
 	    
 	    //## print all substring for a string
+	    public static void printAllSubstrings(String strData){
+	    	char[] cData =  strData.toCharArray();
+	    	int nLength = strData.length();
+	    	char[] cSubString = new char[nLength];
+	    	printAllSubstrings_util(cData, 0, cSubString,nLength);
+	    }
+	    public static void printAllSubstrings_util(char[] cData,int nCurrentIndex,char[] nSubString,int nLength) {
+	    	for(int i=nCurrentIndex;i<nLength;i++) {
+	    		nSubString[i] = cData[i];
+	    		char[] cNewSub =  new char[nLength];
+	    		cNewSub[i] = cData[i];
+	    		System.out.println(Arrays.toString(nSubString));
+	    		System.out.println(Arrays.toString(cNewSub));
+	    		printAllSubstrings_util(cData, nCurrentIndex+1, nSubString, nLength);
+	    		printAllSubstrings_util(cData, nCurrentIndex+1, cNewSub, nLength);
+	    	}
+	    	
+	    	
+	    }
+	    //##End
 	    
+	    
+	    //##Zigzag conversion
+	    public String convert(String s, int nRows) {
+	          char[] cArr =  s.toCharArray();
+	    int nLength =  cArr.length;
+	    
+	    StringBuilder sbOP[] =  new StringBuilder[nRows];
+	    
+	        for(int i=0;i<nRows;i++){
+	            sbOP[i] =  new  StringBuilder();
+	        }
+	    
+	    int i=0;
+	    while(i<nLength){
+	        for(int j=0;j<nRows && i<nLength;j++){
+	            sbOP[j].append(cArr[i++]);
+	        }
+	        for(int j=nRows-2;j>0 && i<nLength;j--){
+	            sbOP[j].append(cArr[i++]);
+	        }
+	    }
+	    
+	    for(i=1;i<nRows;i++){
+	        sbOP[0].append(sbOP[i]);
+	    }
+	    
+	    return sbOP[0].toString();
+	    
+	    }
 	    
 	    //##End
 	    
+	    
+	    //##Reverse an integer
+	    public int reverse(int x) {
+	        int nBase = 10;
+	        Long newNum = 0L;
+	        boolean bNeg =  x<0;
+	        int nMax = Integer.MAX_VALUE;
+	        if(bNeg){
+	            x*=-1;
+	        }
+	        while(x>0){
+	            newNum = newNum*nBase + x%10;
+	            if(newNum > nMax){
+	                return 0;
+	            }
+	            x = x/10;
+	        }
+	        
+	        if(bNeg){
+	            newNum*=-1;
+	        }
+	        return newNum.intValue();      
+	    }
+	    //##
 	    
 	    
 	    
@@ -316,9 +389,10 @@ public class LeetCode {
 	    	 */
 	    	
 	    	//printAllCombinationOfNumber(5);
-	    	int[] nArr = {1,1,2,3,4,5,6,7};
-	    	printAllCombinationOfElementAddUpInN(nArr, 5);
-	    	
+	    	//int[] nArr = {1,1,2,3,4,5,6,7};
+	    	//printAllCombinationOfElementAddUpInN(nArr, 5);
+	    	String strData = "abcd";
+	    	printAllSubstrings(strData);
 	    	
 	    }
 }
