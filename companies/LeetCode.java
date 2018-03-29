@@ -610,6 +610,40 @@ public class LeetCode {
         
     }
     //##End
+    
+    
+    //##Implement strStr()
+    //Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+    public int strStr(String haystack, String needle) {
+        if(haystack == null || needle == null){
+            return -1;
+        }
+        
+        int nLength1 =  haystack.length();
+        int nLength2 =  needle.length();
+        if(nLength2>nLength1){
+            return -1;
+        }
+        
+        if(nLength1 == nLength2 && nLength1 == 0){
+            return 0;
+        }
+        
+        char[] cHayArry = haystack.toCharArray();
+        char[] cNeedle = needle.toCharArray();
+        
+        for(int i=0;i<nLength1;i++){
+            for(int j=0;j<=nLength2;j++){
+                if(j==nLength2) return i;
+                if(i+j >= nLength1) break;
+                if(cNeedle[j] != cHayArry[i+j]){
+                    break;
+                }
+            }
+        }
+        return -1;
+    }
+    //##End
 
 	public static void main(String str[]) {
 		/*
