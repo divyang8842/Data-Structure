@@ -482,7 +482,36 @@ public class LeetCode {
 	            return strPre;
 	        }
 	    //##End
-	    
+	        
+	        
+	        //##3Sum Closest
+	        //Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+	        public int threeSumClosest(int[] nums, int target) {
+	            int nLength = nums.length;
+	            Arrays.sort(nums);  //n Lon n
+	            int nOP = Integer.MAX_VALUE;
+	            for(int i=0;i<nLength;i++){
+	                int nLeft = i+1;
+	                int nRight = nLength-1;
+	                while(nRight>nLeft){
+	                    int nCurrentSum = nums[i]+ nums[nLeft] + nums[nRight];
+	                    
+	                    if( Math.abs(nCurrentSum-target) < Math.abs(nOP)){
+	                        nOP = nCurrentSum-target;
+	                    }
+	                    
+	                    if(nCurrentSum > target){
+	                        nRight--;    
+	                    }else{
+	                        nLeft++;
+	                    }
+	                }
+	                
+	                
+	            }
+	            return nOP+target;
+	        }
+	        //##End
 	    
 	    public static void main(String str[]) {
 	    	/*if(isMatch("a", "ab*a") ) {
